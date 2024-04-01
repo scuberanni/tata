@@ -1,0 +1,72 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="container pt-3">
+    <div class="col-12">
+        <form method="post">
+            {% if messages %}
+            <div class="alert">
+                {% for message in messages %}
+                <div class="alert-message alert-danger">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% csrf_token %}
+            {{ formset.management_form }}
+            {% for form in formset %}
+
+            <div class="row mb-12">
+                <div class="col-6 col-md-2">
+                    <h6 style=" color: rgb(7, 139, 255);">Retailer Name</h6>
+                    {{ form.r_name }}
+                </div>
+                <div class="col-6 col-md-2">
+                    <h6 style="color: rgb(7, 139, 255);">Box Type</h6>
+                    {{ form.b_name }}
+                </div>
+                <div class="col-6 col-md-2">
+                    <h6 style="color: rgb(7, 139, 255);">SL NO</h6>
+                    {{ form.b_slno }}
+                </div>
+                <div class="col-6 col-md-2" style="padding-left: 20px;">
+                    <div>
+                        <h6 style="color: rgb(7, 139, 255);">VSC NO</h6>
+                        {{ form.b_vscno }}
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div>
+                        <h6 style="color: rgb(7, 139, 255);">Wo_CLOSE_DATE</h6>
+                        {{ form.woc_date }}
+                    </div>
+                </div>
+                <div class="col-12 col-md-1" style="padding-left: 20px;">
+                    <div>
+                        <h6 style="color: rgb(0, 0, 0);"></h6>
+
+                    </div>
+                </div>
+                <div class="col-12 col-md-1" style="padding-left: 20px;">
+                    <div>
+                        <h6 style="color: rgb(0, 0, 0);"></h6>
+
+                    </div>
+                </div>
+
+
+            </div>
+            {% endfor %}
+            <div class="pt-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </DIV>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}

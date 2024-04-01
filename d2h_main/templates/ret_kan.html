@@ -1,0 +1,141 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 pt-4">
+            <body class="text-centre">
+                <div class="row">
+                    <div class="form-group col-12 col-md-12">
+                        <form class="pt-1" action="{% url 'ret_kan' %}" method="post" enctype="multipart/form-data"
+                            style="color:white;">
+                            {% csrf_token %}
+                            <!-- Display errors at the top of the form -->
+                            {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <strong>Error:</strong> Please correct the following errors.
+                                <ul>
+                                    {% for field_errors in form.errors.values %}
+                                    {% for error in field_errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            <div class="container-fluid">
+                                <div class="row pt-3">
+                                    <div class="col-12">
+                                        <h2 class="text-white">Return Product to Kaniyadukam</h2>
+                                    </div>
+                                    <div class="col-3 col-md-2 pt-4">
+                                        {% csrf_token %}
+                                        <label for="id_field1">RETAILER:</label>
+                                    </div>
+                                    <div class="col-9 col-md-10 pt-3">
+                                        {{ form.retailer }}
+                                    </div>
+                                    <div class="col-3 col-md-2 pt-2">
+                                        {% csrf_token %}
+                                        <label for="id_field2">CABLE:</label>
+                                    </div>
+                                    <div class="col-9 col-md-10">
+                                        {{ form.cable2 }}
+                                    </div>
+                                    <div class="col-3 col-md-2 pt-2">
+                                        {% csrf_token %}
+                                        <label for="id_field3">LNB:</label>
+                                    </div>
+                                    <div class="col-9 col-md-10">
+                                        {{ form.lnb2 }}
+                                    </div>
+                                    <div class="col-3 col-md-2 pt-2">
+                                        {% csrf_token %}
+                                        <label for="id_field4">DISH:</label>
+                                    </div>
+                                    <div class="col-9 col-md-10">
+                                        {{ form.dish2 }}
+                                    </div>
+                                    <div class="col-3 col-md-2 pt-2">
+                                        {% csrf_token %}
+                                        <label for="id_field5">KIT:</label>
+                                    </div>
+                                    <div class="col-9 col-md-10">
+                                        {{ form.kit2 }}
+                                    </div>
+
+                                    <div class="col-6 col-md-12 pt-3">
+                                        <input type="submit" class="btn-primary" value="Return Product">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </body>
+        </div>
+        <div class="col-12 col-md-6 pt-4">
+
+            <body class="text-centre">
+                <div class="row">
+                    <div class="form-group col-12 col-md-12">
+                        <form class="pt-1" action="{% url 'ret_ret' %}" method="post" enctype="multipart/form-data"
+                            style="color:white;">
+                            {% csrf_token %}
+                            <!-- Display errors at the top of the form -->
+                            {% if form2.errors %}
+                            <div class="alert alert-danger">
+                                <strong>Error:</strong> Please correct the following errors.
+                                <ul>
+                                    {% for field_errors in form2.errors.values %}
+                                    {% for error in field_errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            <div class="container-fluid">
+                                <div class="row pt-3">
+                                    <h2 class="text-white">Retailer to Retailer</h2>
+                                    <div class="col-3 col-md-2 pt-4">
+                                        {% csrf_token %}
+                                        <label for="id_field1">RETAILER:</label>
+                                    </div>
+                                    <div class="col-9 col-md-10 pt-3">
+                                        {{ form2.retailer1 }}
+                                    </div>
+                                    <div class="col-3 col-md-2 pt-2">
+                                        {% csrf_token %}
+                                        <label for="id_field2">RETAILER:</label>
+                                    </div>
+                                    <div class="col-9 col-md-10 pt-1">
+                                        {{ form2.retailer2 }}
+                                    </div>
+                                    <div class="col-3 col-md-2 pt-2">
+                                        {% csrf_token %}
+                                        <label for="id_field3">QUANTITY:</label>
+                                    </div>
+                                    <div class="col-8 col-md-10">
+                                        {{ form2.quantity }}
+                                    </div>
+
+                                    <div class="col-6 col-md-12 pt-3">
+                                        <input type="submit" class="btn-primary" value="Return Product">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </body>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

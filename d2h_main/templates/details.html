@@ -1,0 +1,54 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Category
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {% for category in categories %}
+                            <li class="dropdown-list-item">{{ category.r_name }}</li>
+                            {% endfor %}
+                            <!-- Add more categories here -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Wait for the document to be fully loaded
+    $(document).ready(function () {
+        // Add click event listener to the dropdown button
+        $('.dropdown-toggle').on('click', function () {
+            // Toggle the dropdown menu when the button is clicked
+            $(this).next('.dropdown-menu').toggleClass('show');
+        });
+
+        // Close the dropdown menu when clicking outside of it
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('.dropdown').length) {
+                $('.dropdown-menu').removeClass('show');
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}

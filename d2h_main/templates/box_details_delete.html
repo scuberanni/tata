@@ -1,0 +1,29 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+
+        <body>
+            <h1 class="text-white">Delete Confirmation</h1>
+            <p class="text-white">Are you sure you want to delete the following box product?</p>
+            <p class="text-white">Box Product Name: {{ box_product_instance }}</p>
+            <form method="post" class="col-2">
+                {% csrf_token %}
+                <button class="btn btn-danger w-100" type="submit">Confirm Delete</button>
+            </form>
+            <div class="col-6">
+                <a href="{% url 'stock_view_all' %}"><button class="btn btn-primary">Cancel</button></a>
+            </div>
+        </body>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

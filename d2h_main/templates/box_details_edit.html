@@ -1,0 +1,62 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container">
+
+    <body class="text-centre">
+        <div style="padding-left: 50px;">
+            <h2 class="text-white pt-5">Box Details Editing</h2>
+        </div>
+        <div class="row">
+            <div class="form-group col-4 col-md-12">
+                <form class="pt-1 px-4" action="" method="post" enctype="multipart/form-data" style="color:white;">
+
+                    <div class="container">
+                        <div class="row pt-3">
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field1">Retailer:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.r_name }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field2">Box Name:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.b_name }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field3">Box SL No:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.b_slno }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field4">VSC No:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.b_vscno }}
+                            </div>
+
+                            <div class="col-6 col-md-6 pt-3">
+                                <input type="submit" class="btn-primary" value="Edit Details">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</div>
+
+
+{% endblock %}

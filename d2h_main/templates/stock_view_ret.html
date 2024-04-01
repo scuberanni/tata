@@ -1,0 +1,103 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="onlypc1 pt-3 ">
+            <div class="bg-warning p-2 border border-5 rounded-4 border-primary onlypc1">
+                
+                <div class="pt-2 px-2">
+                    <div class="container-fluid" style="padding: 12px;">
+                        <div class="row p-2  border border-3 rounded-3 border-dark bg-success" style="color: #FFD700;font-weight: bold;font-size: 18px;">
+                            {% for product5 in products5 %}
+                            <div class="col-4 col-md-1 ">
+                                <label class="text_end" >Retailer:</label>
+                            </div>
+                            <div class="col-8 col-md-2">
+                                {{product5.r_name |upper}}
+                            </div>
+                            <div class="col-4 col-md-1 ">
+                                <label >Address:</label>
+                            </div>
+                            <div class="col-8 col-md-2 ">
+                                {{product5.address |upper}}
+                            </div>
+                            <div class="col-4 col-md-1 ">
+                                <label >PH NO:</label>
+                            </div>
+                            <div class="col-8 col-md-5 ">
+                                <a href="{% url 'retailer_edit1' product5.id %}" style="text-decoration:none;color: #FFD700;">{{product5.ph_no |upper}}</a>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Retailer</th>
+                                <th class="text-center">DISH</th>
+                                <th class="text-center">LNB</th>
+                                <th class="text-center">CABLE</th>
+                                <th class="text-center">KIT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                            <tr>
+                                <td class="text-center">{{ forloop.counter0|add:1 }}</td>
+                                <td class="">{{product.retailer |upper}}</td>
+                                <td class="text-center">{{product.dish2 |upper}}</td>
+                                <td class="text-center">{{product.lnb2 |upper}}</td>
+                                <td class="text-center">{{product.cable2 |upper}}</td>
+                                <td class="text-center">{{product.kit2 |upper}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    
+                </div>
+                <div class="p-2">
+                    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Sl No</th>
+                                <th class="text-center">Box Name</th>
+                                <th class="text-center">Box Sl No</th>
+                                <th class="text-center">VSC No</th>
+                                <th class="text-center">Edt/Dlt</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product1 in products1 %}
+                            <tr>
+                                <td class="text-center">{{ forloop.counter0|add:1 }}</td>
+                                <td class="">{{product1.b_name |upper}}</td>
+                                <td class="text-center">{{product1.b_slno |upper}}</td>
+                                <td class="text-center">{{product1.b_vscno |upper}}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'woc' product1.id %}"> <button
+                                        style="height: 35px;width: 35px; padding-left: 10px;"
+                                        class="btn btn-dark"><i class="fa-solid fa-calendar-xmark"></i></button></a>
+                                    <a href="{% url 'box_details_edit' product1.id %}"> <button
+                                            style="height: 35px;width: 35px; padding-left: 10px;"
+                                            class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    <a href="{% url 'box_details_delete' product1.id %}"> <button
+                                            style="height: 35px;width: 35px;padding-left: 10px;"
+                                            class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

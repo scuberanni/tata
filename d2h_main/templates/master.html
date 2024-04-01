@@ -1,0 +1,169 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<section class="container-fluid">
+    <div class="col-12">
+        <div class="row">
+            <div class="container1">
+
+
+                <div class="gradient-cards">
+                    <div class="card1">
+                        <div class="container-card bg-green-box">
+                            <div class="col-12 col-lg-12 " style="height: 360px;">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="a1" style="padding-left: 20px; padding-top: 20px;">
+                                            <i class="fa-solid fa-hard-drive"></i>
+                                        </a>
+                                        <br>
+                                        <p class="card-title">Set Top BOX Details &nbsp; <a class="btn btn-primary"
+                                                href="{% url 'bo_master' %}" role="button">Add Box</a></p>
+                                        <table>
+                                            {% for product_obj in boxes %}
+                                            <tr>
+                                                <td class="pt-2">
+                                                    <h7 class="h12" style="color: aliceblue;">{{product_obj.b_name | upper}} &nbsp;
+                                                    </h7>
+                                                </td>
+                                                <td>
+                                                    <a href="{% url 'box_edit' product_obj.id %}"
+                                                        style="text-decoration: none;">
+                                                        <div class="btn-group" role="group" aria-label="Third group">
+                                                            <button type="button" class="btn btn-info "><i
+                                                                    class="fa-solid fa-pen-to-square"></i></button>
+                                                        </div>
+                                                    </a> &nbsp;
+                                                </td>
+                                                <td>
+                                                    <a href="{% url 'box_dlt' product_obj.id %}"
+                                                        style="text-decoration: none;">
+                                                        <div class="btn-group" role="group" aria-label="Third group">
+                                                            <button type="button" class="btn btn-danger "><i
+                                                                    class="fa-solid fa-trash"></i></button>
+                                                        </div>
+                                                    </a> &nbsp;
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card1">
+                        <div class="container-card bg-white-box">
+                            <div class="col-12 col-lg-12 ">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="a1" style="padding-left: 20px; padding-top: 20px;">
+                                            <i class="fa-solid fa-satellite-dish"></i>
+                                        </a>
+                                        <br>
+                                        <p class="card-title">Product Details &nbsp; <a class="btn btn-primary"
+                                                href="{% url 'pr_master' %}" role="button">Add Product</a></p>
+                                        <table>
+                                            {% for product_obj in products %}
+                                            <tr>
+                                                <td class="pt-2">
+                                                    <h7 class="h12" style="color: aliceblue;">{{product_obj.p_name | upper}} &nbsp;
+                                                    </h7>
+                                                </td>
+                                                <td>
+                                                    <a href="{% url 'product_edit' product_obj.id %}"
+                                                        style="text-decoration: none;">
+                                                        <div class="btn-group" role="group" aria-label="Third group">
+                                                            <button type="button" class="btn btn-info "><i
+                                                                    class="fa-solid fa-pen-to-square"></i></button>
+                                                        </div>
+                                                    </a> &nbsp;
+                                                </td>
+                                                <td>
+                                                    <a href="{% url 'product_dlt' product_obj.id %}"
+                                                        style="text-decoration: none;">
+                                                        <div class="btn-group" role="group" aria-label="Third group">
+                                                            <button type="button" class="btn btn-danger "><i
+                                                                    class="fa-solid fa-trash"></i></button>
+                                                        </div>
+                                                    </a> &nbsp;
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="padding-top: 30px;">
+                    <div class="container-card bg-yellow-box ">
+                        <div class="col-12 col-lg-12 ">
+                            <ul>
+                                <li>
+                                    <a href="#" class="a1" style="padding-left:16px ; padding-top: 20px;">
+                                        <i class="fa-solid fa-shop"></i>
+                                    </a>
+                                    <br>
+                                    <p class="card-title">Retailer Details &nbsp; <a class="btn btn-primary"
+                                            href="{% url 'ret_master' %}" role="button">Add Retailers</a></p>
+                                    <table>
+                                        {% for product_obj in retailers %}
+                                        <tr>
+                                            <td class="pt-2">
+                                                <h7 class="h12" style="color: aliceblue;">{{product_obj.r_name | upper}} &nbsp;
+                                                </h7>
+                                            </td>
+                                            <td class="pt-2">
+                                                <h7 class="h12" style="color: aliceblue;">{{product_obj.address | upper}} &nbsp;
+                                                </h7>
+                                            </td>
+                                            <td class="pt-2">
+                                                <h7 class="h12" style="color: aliceblue;">{{product_obj.ph_no | upper}} &nbsp;
+                                                </h7>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'retailer_edit' product_obj.id %}"
+                                                    style="text-decoration: none;">
+                                                    <div class="btn-group" role="group" aria-label="Third group">
+                                                        <button type="button" class="btn btn-info "><i
+                                                                class="fa-solid fa-pen-to-square"></i></button>
+                                                    </div>
+                                                </a> &nbsp;
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'retailer_dlt' product_obj.id %}"
+                                                    style="text-decoration: none;">
+                                                    <div class="btn-group" role="group" aria-label="Third group">
+                                                        <button type="button" class="btn btn-danger "><i
+                                                                class="fa-solid fa-trash"></i></button>
+                                                    </div>
+                                                </a> &nbsp;
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+
+                                    </table>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script type="text/javascript" src="{% static 'style.js'%}"></script>
+
+
+
+{% endblock %}

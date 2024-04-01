@@ -1,0 +1,460 @@
+
+@import url('https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css');
+
+button.neumorphic {
+ 
+  container-type: inline-size;
+  inline-size: 70%;
+  aspect-ratio: 1/1;
+  border: 0.4rem solid transparent;
+  border-radius: 1rem;
+  color: hsl(0, 0%, 0%);
+  background: rgb(255, 255, 255);
+  
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+  
+  --shadow: 
+    .5rem .5rem 1rem hsl(0 0% 50% / .5);
+  box-shadow: var(--shadow);
+  outline: none;  
+  transition: all 0.1s;
+  
+  &:hover, &:focus-visible {
+    color: hsl(10 80% 50%);
+    scale: 1.1
+  }
+  &:active, &.active{
+    box-shadow:
+      var(--shadow),
+      inset .5rem .5rem 1rem hsl(0 0% 50% / .5),
+      inset -.5rem -.5rem 1rem hsl(0 0% 100% / .75);
+    color: hsl(10 80% 50%);
+    > i { font-size: 28cqi};
+    > span { font-size: 13cqi};
+  }
+
+  >i {
+    font-size: 31cqi;
+  }
+  > span {
+    font-family: system-ui, sans-serif;
+    font-size: 16cqi;
+  }
+}
+button.neumorphic1 {
+ 
+  container-type: inline-size;
+  inline-size: 70%;
+  aspect-ratio: 1/1;
+  border: 0.4rem solid transparent;
+  border-radius: 1rem;
+  color: hsl(0, 0%, 0%);
+  
+  
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+  
+  --shadow: 
+    .5rem .5rem 1rem hsl(0 0% 50% / .5);
+  box-shadow: var(--shadow);
+  outline: none;  
+  transition: all 0.1s;
+  
+  &:hover, &:focus-visible {
+    color: hsl(10 80% 50%);
+    scale: 1.1
+  }
+  &:active, &.active{
+    box-shadow:
+      var(--shadow),
+      inset .5rem .5rem 1rem hsl(0 0% 50% / .5),
+      inset -.5rem -.5rem 1rem hsl(0 0% 100% / .75);
+    color: hsl(10 80% 50%);
+    > i { font-size: 28cqi};
+    > span { font-size: 13cqi};
+  }
+
+  >i {
+    font-size: 31cqi;
+  }
+  > span {
+    font-family: system-ui, sans-serif;
+    font-size: 16cqi;
+  }
+}
+button.neumorphic2 {
+ 
+  container-type: inline-size;
+  inline-size: 70%;
+  aspect-ratio: 1/1;
+  border: 0.4rem solid transparent;
+  border-radius: 1rem;
+  color: hsl(0, 0%, 0%);
+  background: rgb(217, 235, 103);
+  
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+  
+  --shadow: 
+    .5rem .5rem 1rem hsl(0 0% 50% / .5);
+  box-shadow: var(--shadow);
+  outline: none;  
+  transition: all 0.1s;
+  
+  &:hover, &:focus-visible {
+    color: hsl(10 80% 50%);
+    scale: 1.1
+  }
+  &:active, &.active{
+    box-shadow:
+      var(--shadow),
+      inset .5rem .5rem 1rem hsl(0 0% 50% / .5),
+      inset -.5rem -.5rem 1rem hsl(0 0% 100% / .75);
+    color: hsl(10 80% 50%);
+    > i { font-size: 28cqi};
+    > span { font-size: 13cqi};
+  }
+
+  >i {
+    font-size: 31cqi;
+  }
+  > span {
+    font-family: system-ui, sans-serif;
+    font-size: 16cqi;
+  }
+}
+
+.cd__main {
+  background-color: #e5e9f4 !important;
+  padding: 2rem;
+}
+
+
+.buttons {
+  padding-top: 35px;
+  display: grid;
+  place-items: center; /* Center the contents both horizontally and vertically */
+  width: min(70rem, 100%);
+  margin-inline: auto;
+  grid-template-columns: repeat(auto-fit, minmax(min(7rem, 100%), 1fr));
+  gap: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .buttons {
+      padding-top: 35px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 columns */
+      gap: 1rem; /* Adjust the gap between buttons */
+      justify-items: center; /* Center buttons horizontally */
+      width: min(90vw, 100%); /* Adjust the width as needed */
+      margin: 0 auto; /* Center the grid horizontally */
+  }
+}
+
+/*side navbar*/
+
+
+
+ul li {
+  list-style: none;
+  margin-left: -35px;
+  margin-top: 11px;
+  text-decoration: none;
+  
+}
+
+
+ul li .a1 {
+  width: 88px;
+  height: 88px;
+  /* Other styles */
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  ul li .a1 {
+    width: 0px;
+    height: 70px;
+    
+  }
+}
+
+@media (max-width: 576px) {
+  ul li .a1 {
+    width: 41px;
+    height: 41px;
+  }
+}
+
+ul li .a1 {
+  
+  background-color: #fff;
+  text-align: center;
+  font-size: 35px;
+  display: flex;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid #fff;
+  z-index: 1;
+}
+
+ul li .a1 .icon {
+  
+  position: relative;
+  color: #262626;
+  transition: .5s;
+  z-index: 3;
+ 
+}
+
+.icon{
+  font-size: 30px; /* Set initial font size */
+  padding-top: 26px;
+  padding-left: 22px;
+  
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .icon{
+    font-size: 25px; /* Reduce font size for smaller screens */
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .icon{
+    font-size: 20px; /* Further reduce font size for even smaller screens */
+    padding-top: 8px;
+  padding-left: 8px;
+  text-decoration: none;
+  }
+}
+
+
+
+
+ul li .a1:hover .icon {
+  color: #fff;
+  transform: rotateY(360deg);
+}
+
+ul li .a1:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f00;
+  transition: .5s;
+  z-index: 2;
+}
+
+ul li .a1:hover:before {
+  top: 0;
+}
+
+ul li:nth-child(1) a:before{
+  background: #3b993d;
+}
+
+ul li:nth-child(2) a:before{
+  background: #55acee;
+}
+
+ul li:nth-child(3) a:before {
+  background: #0077b5;
+}
+
+ul li:nth-child(4) a:before {
+  background: #dd4b39;
+}
+
+.ic-1{
+background-image: url();
+}
+
+.car10 {
+  color: inherit; /* Inherit color from parent */
+  text-decoration: none; /* Remove underline */
+}
+
+
+/*cards*/
+
+
+
+
+
+.gradient-cards {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 32px;
+padding-top: 20px;
+@media screen and (max-width: 560px) {
+  grid-template-columns: 1fr;
+}
+}
+
+.container-title {
+text-align: center;
+padding: 0 !important;
+margin-bottom: 40px;
+font-size: 40px;
+color: #ff0000;
+font-weight: 600;
+line-height: 60px;
+
+}
+
+
+
+.container-card {
+overflow: hidden;
+position: relative;
+border: 2px solid rgb(0, 255, 0);
+background: linear-gradient(71deg, #080509, #1a171c, #080509);
+background-clip: padding-box;
+border-radius: 45px;
+padding: 40px;
+img {
+margin-bottom: 32px;
+  
+}
+}
+
+.bg-green-box,
+.bg-white-box,
+.bg-yellow-box,
+.bg-blue-box {
+  position: relative;
+}
+
+.bg-green-box::after,
+.bg-white-box::after,
+.bg-yellow-box::after,
+.bg-blue-box::after {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  right: -1px;
+  content: "";
+  z-index: -1;
+  border-radius: 45px;
+}
+
+.bg-green-box::after {
+  background: linear-gradient(71deg, #0d1212, #3da077, #0d1212);
+}
+
+.bg-white-box::after {
+  background: linear-gradient(71deg, #121013, #b0afb0, #121013);
+}
+
+.bg-yellow-box::after {
+  background: linear-gradient(71deg, #110e0e, #afa220, #110e0e);
+}
+
+.bg-blue-box::after {
+  background: linear-gradient(71deg, #0c0a0e, #5f6fad, #0c0a0e);
+}
+
+
+.card-title{
+font-weight: 600;
+color: #04ff2e;
+letter-spacing: -0.02em;
+line-height: 40px;
+font-style: normal;
+font-size: 28px;
+padding-bottom: 8px;
+}
+
+
+
+.h12 {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 25px; /* Default font size */
+  overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  /* Adjust font size for smaller screens like tablets */
+  .h12 {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  /* Adjust font size for mobile devices */
+  .h12 {
+    font-size: 10px;
+  }
+}
+
+/* Define a class for mobile buttons */
+.btn-mobile {
+  /* Set the button size for mobile view */
+  width: 40px;
+  height: 40px;
+  /* Adjust font size for icon */
+  font-size: 20px;
+}
+
+/* Media query for smaller screen sizes */
+@media screen and (max-width: 560px) {
+  .btn-mobile {
+      /* Adjust button size for smaller screens */
+      width: 10px;
+      height: 10px;
+      /* Adjust font size for icon */
+      font-size: 10px;
+  }
+}
+
+.onlypc{
+    overflow: hidden;  
+}
+
+.onlypc1{
+    padding-top: 30px;  
+}
+.onlypc2{
+    height: 560px;  
+}
+
+.onlypc img{
+    height: 250px;
+    width: 600px;
+    padding-top:30px ;
+    overflow: hidden;  
+    border-radius: 30px;
+}
+@media screen and (max-width: 560px) {
+    .onlypc {
+        /* Adjust button size for smaller screens */
+        padding-top: 0px;
+        height: 0px;
+        overflow: hidden;
+        
+    }
+    .onlypc1{
+        padding-top:00px;  
+        overflow: hidden;
+        font-size: 10px;
+    }
+    .onlypc2{
+        height: 435px;  
+    }
+  }
+  
+
+  

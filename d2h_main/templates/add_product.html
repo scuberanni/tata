@@ -1,0 +1,60 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container">
+
+    <body class="text-centre">
+        <h2 class="text-white">Add Product to Kaniyadukam</h2>
+        <div class="row">
+            <div class="form-group col-4 col-md-12">
+                <form class="pt-1 px-4" action="" method="post" enctype="multipart/form-data" style="color:white;">
+                    
+                    <div class="container">
+                        <div class="row pt-3">
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field1">CABLE:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.cable }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field2">LNB:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.lnb }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field3">DISH:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.dish }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field4">KIT:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.kit }}
+                            </div>
+
+                            <div class="col-6 col-md-6 pt-3">
+                                <input type="submit" class="btn-primary" value="Add Product">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</div>
+
+
+{% endblock %}

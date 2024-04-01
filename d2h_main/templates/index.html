@@ -1,0 +1,228 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<section class="container-fluid">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-2 col-lg-1 pt-4" style="height: 370px; ">
+                <ul>
+                    <li>
+                        <a href="{% url 'master' %}" class="a1">
+                            <i class="fa-solid fa-laptop icon "></i> </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'sales_reports' %}" class="a1"><i class="fab fa-meta icon"></i></a>
+                    </li>
+                    <li>
+                        <a href="{% url 'admin' %}" class="a1"><i class="fa-solid fa-user-tie icon"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" class="a1"><i class="fa-solid fa-code icon"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" class="a1"><i class="fa-solid fa-gear icon"></i></a>
+                    </li>
+                    <li>
+                        <a href="#" class="a1"><i class="fa-solid fa-arrow-right-from-bracket icon"></i></a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-10 col-lg-5">
+
+                <div style="width:100%;">
+                    <div>
+                        <div class="buttons">
+
+                            <button class="neumorphic active" id="m4">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Add to KAN</span>
+                            </button></a>
+                            <button class="neumorphic" id="m5">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Add to Ret</span>
+                            </button>
+                            <button class="neumorphic" id="m9">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Add Box No</span>
+                            </button>
+                            <button class="neumorphic" id="m10">
+                                <i class="fa-solid fa-hourglass-end"></i>
+                                <span>WOC</span>
+                            </button>
+                            <button class="neumorphic" id="m6">
+                                <i class="fa-solid fa-minus"></i>
+                                <span>Rtn to KAN</span>
+                            </button>
+
+                            <button class="neumorphic" id="m7">
+                                <i class="fa-solid fa-minus"></i>
+                                <span>Sale frm KAN</span>
+                            </button>
+                            <button class="neumorphic" id="m8">
+                                <i class="fa-solid fa-minus"></i>
+                                <span>Sale frm Ret</span>
+                            </button>
+
+
+                            <button class="neumorphic1" style="background-color: rgb(219, 160, 160);" id="m11">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span>All Details</span>
+                            </button>
+                            <button class="neumorphic2" id="m1">
+                                <i class="fa-solid fa-satellite-dish"></i>
+                                <span>Product Master</span>
+                            </button>
+                            <button class="neumorphic2" id="m2">
+                                <i class="fa-solid fa-hard-drive"></i>
+                                <span>Box Master</span>
+                            </button>
+
+                            <button class="neumorphic2" id="m3">
+                                <i class="fa-solid fa-shop"></i>
+                                <span>Shop Master</span>
+                            </button>
+                            <button class="neumorphic1" id="m12" style="background-color: rgb(81, 180, 216);">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <span>Search Prod</span>
+                            </button>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="onlypc pt-3">
+                    <img src="static/images/dish.png" alt="">
+                </div>
+
+            </div>
+            <div class="col-12 col-lg-6 onlypc1">
+                <div class=" bg-warning p-2 border border-5 rounded-4 border-primary onlypc1 ">
+                    <div class="onlypc2">
+                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Retailer</th>
+                                    <th>DISH</th>
+                                    <th>LNB</th>
+                                    <th>CABLE</th>
+                                    <th>KIT</th>
+                                    <th>Box</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product1 in products1 %}
+                                <tr>
+                                    <td class="text-center">{{ forloop.counter }}</td>
+                                    <td class="">KANIYADUKAM</td>
+                                    <td class="text-center">{{product1.dish |upper}}</td>
+                                    <td class="text-center">{{product1.lnb |upper}}</td>
+                                    <td class="text-center">{{product1.cable |upper}}</td>
+                                    <td class="text-center">{{product1.kit |upper}}</td>
+                                    <td class="text-center">0</td>
+                                </tr>
+                                {% endfor %}
+                                {% for product in products %}
+                                <tr>
+
+                                    <td class="text-center">{{ forloop.counter0|add:2 }}</td>
+                                    <td class="">{{product.retailer |upper}}</td>
+                                    <td class="text-center">{{product.dish2 |upper}}</td>
+                                    <td class="text-center">{{product.lnb2 |upper}}</td>
+                                    <td class="text-center">{{product.cable2 |upper}}</td>
+                                    <td class="text-center">{{product.kit2 |upper}}</td>
+                                    {% if product.b_name == 0 %}
+                                    <td class="text-center">0</td> <!-- Display default quantity as 0 -->
+                                    {% else %}
+                                    <td class="text-center"><a href="{% url 'stock_view_ret' product.id %}"
+                                            style="text-decoration: none;">
+                                            {{product.retailer.box_product_set.count }}</a></td>
+                                    <!-- Counting quantity -->
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+
+
+
+                                <div class="d-grid gap-2 pb-1">
+                                    <button class="btn btn-success" type="button">Stock Details</button>
+                                </div>
+                                <a href="{% url 'stock_view' %}">
+                                    <div class="d-grid gap-2 pb-1">
+                                        <button class="btn btn-primary" type="button">View All</button>
+                                    </div>
+                                </a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript" src="{% static 'style.js'%}"></script>
+
+<script>
+    var m1 = document.getElementById("m1");
+    m1.addEventListener("click", function () {
+        window.location.href = "{% url 'pr_master' %}";
+    });
+
+    var m2 = document.getElementById("m2");
+    m2.addEventListener("click", function () {
+        window.location.href = "{% url 'bo_master' %}";
+    });
+
+    var m3 = document.getElementById("m3");
+    m3.addEventListener("click", function () {
+        window.location.href = "{% url 'ret_master' %}";
+    });
+
+    var m4 = document.getElementById("m4");
+    m4.addEventListener("click", function () {
+        window.location.href = "{% url 'add_product' %}";
+    });
+
+    var m5 = document.getElementById("m5");
+    m5.addEventListener("click", function () {
+        window.location.href = "{% url 'ret_product' %}";
+    });
+
+    var m6 = document.getElementById("m6");
+    m6.addEventListener("click", function () {
+        window.location.href = "{% url 'ret_home' %}";
+    });
+
+    var m7 = document.getElementById("m7");
+    m7.addEventListener("click", function () {
+        window.location.href = "{% url 'sale_ret_product' %}";
+    });
+
+    var m8 = document.getElementById("m8");
+    m8.addEventListener("click", function () {
+        window.location.href = "{% url 'sale_ret_kan' %}";
+    });
+
+    var m9 = document.getElementById("m9");
+    m9.addEventListener("click", function () {
+        window.location.href = "{% url 'add_box_master' %}";
+    });
+    var m10 = document.getElementById("m10");
+    m10.addEventListener("click", function () {
+        window.location.href = "{% url 'close_box_master' %}";
+    });
+    var m11 = document.getElementById("m11");
+    m11.addEventListener("click", function () {
+        window.location.href = "{% url 'stock_view_all' %}";
+    });
+    var m12 = document.getElementById("m12");
+    m12.addEventListener("click", function () {
+        window.location.href = "{% url 'search' %}";
+    });
+</script>
+
+{% endblock %}

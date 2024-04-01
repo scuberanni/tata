@@ -1,0 +1,82 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="container">
+
+    <body class="text-centre">
+        <h2 class="text-white">Add Product to Retailers</h2>
+        <div class="row">
+            <div class="form-group col-4 col-md-12">
+                <form class="pt-1 px-4" action="" method="post" enctype="multipart/form-data" style="color:white;">
+                    {% csrf_token %}
+                    <!-- Display errors at the top of the form -->
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <strong>Error:</strong> Please correct the following errors.
+                        <ul>
+                            {% for field_errors in form.errors.values %}
+                            {% for error in field_errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <div class="container">
+                        <div class="row pt-3">
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field1">Retailer:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.retailer }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field2">CABLE:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.cable2 }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field3">LNB:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.lnb2 }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field4">DISH:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.dish2 }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field5">KIT:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.kit2 }}
+                            </div>
+
+
+                            <div class="col-6 col-md-6 pt-3">
+                                <input type="submit" class="btn-primary" value="Add Product">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+{% block content %}
+<section class="p-3">
+
+    <body class="">
+        <style>
+            /* Add the CSS style for enabling scrolling */
+            .table-container {
+                overflow-x: auto;
+            }
+        </style>
+
+        <section class="container  bg-primary rounded-top-4">
+            <div class="row pt-2 ">
+                <div class="col-12">
+                    <h2>Sales Report Summary</h2>
+                </div>
+                <div class="col-12 ">
+                    <form action="" method="post" enctype="application/x-www-form-urlencoded">
+                        {% csrf_token %}
+                        <section>
+                            <div class="row">
+                                <div class="col-6 col-md-2">
+                                    <h6 style="color: aliceblue;">Date From: </h6><input type="date" name="start_date1"
+                                        style="width: 100%;">
+                                </div>
+                                <div class="col-6 col-md-2">
+                                    <h6 style="color: aliceblue;">Date to:</h6><input type="date" name="end_date1"
+                                        style="width: 100%;">
+                                </div>
+                                <div class="col-6" style="padding-top: 28px;">
+                                    <input style="height: 25px;" type="submit" value="VIEW">
+                                </div>
+                            </div>
+                        </section>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section class="container bg-primary rounded-bottom-4">
+            <div class="row">
+                <div class="col-12 col-md-12 mt-2">
+                    <!-- Add a wrapper with the table-container class for enabling scrolling -->
+                    <div class="table-container">
+                        <table id="salesTable"
+                            class="css-serial table table-hover table-info table-striped table-bordered border-dark">
+                            <thead class="table-dark text-center">
+                                <tr>
+                                    <th scope="col">NO</th>
+                                    <th scope="col">RETAILER</th>
+                                    <th scope="col">B_NAME</th>
+                                    <th scope="col">B_SL NO</th>
+                                    <th scope="col">VSC NO</th>
+                                    <th scope="col">FULL SET</th>
+                                    <th scope="col">WOC_DATE</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product_obj in pr_reports %}
+                                <tr>
+                                    <td class="text-center">{{ forloop.counter }}</td>
+                                    <td><a style="text-decoration: none;" href="">{{ product_obj.r_name | upper }}</a>
+                                    </td>
+                                    <td class="b-name">{{ product_obj.b_name | upper }}</td>
+                                    <td>{{ product_obj.b_slno | upper }}</td>
+                                    <td>{{ product_obj.b_vscno | upper }}</td>
+                                    <td class="full-set">{{ product_obj.set | upper }}</td>
+                                    <td>{{ product_obj.woc_date | date:"d-m-Y" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Display total sum of the FULL SET column -->
+                    <p id="totalSum"></p>
+                    <!-- Display count of "pana" and "navya" boxes -->
+                    <p id="countPanaNavya"></p>
+                    <!-- Display total count of "pana" and "navya" in the B_NAME column -->
+                    <p id="totalPanaNavya"></p>
+                </div>
+            </div>
+        </section>
+    </body>
+</section>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // Calculate total sum of the FULL SET column
+        const salesTable = document.getElementById('salesTable');
+        const fullSetCells = salesTable.getElementsByClassName('full-set');
+        let totalSum = 0;
+
+        for (let cell of fullSetCells) {
+            const value = parseInt(cell.innerText) || 0;
+            totalSum += value;
+        }
+
+        // Display total sum
+        const totalSumElement = document.getElementById('totalSum');
+        totalSumElement.innerText = 'Sum of FULL SET: ' + totalSum;
+
+        // Calculate count of "pana" and "navya" in the B_NAME column
+        const bNameCells = salesTable.getElementsByClassName('b-name');
+        let countPana = 0;
+        let countNavya = 0;
+
+        for (let cell of bNameCells) {
+            const value = cell.innerText.trim().toLowerCase();
+            if (value === 'pana box') {
+                countPana++;
+            } else if (value === 'navya box') {
+                countNavya++;
+            }
+        }
+
+        // Display count of "pana" and "navya"
+        const countPanaNavyaElement = document.getElementById('countPanaNavya');
+        countPanaNavyaElement.innerText = 'Count of Pana box: ' + countPana + ', Count of Navya box: ' + countNavya;
+
+        // Calculate total count of "pana" and "navya" in the B_NAME column
+        const totalPanaNavya = countPana + countNavya;
+
+        // Display total count of "pana" and "navya"
+        const totalPanaNavyaElement = document.getElementById('totalPanaNavya');
+        totalPanaNavyaElement.innerText = 'Total Count of boxes: ' + totalPanaNavya;
+    });
+</script>
+
+{% endblock %}
