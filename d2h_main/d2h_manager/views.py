@@ -152,65 +152,60 @@ def woc(request, pk):
                 else:
                     set_var = None  # Handle other cases if needed
 
-                if set_var is not None:
-                    box_product_instance.set = set_var
-                    
-                    if set_var == 1:
-                        # Subtract from product or to_ret_product based on r_name
-                        if form.cleaned_data.get('r_name').r_name == "kaniyadukam traders":
-                            product_instance = product.objects.first()
-                            if product_instance:
-                                # Check if input data exceeds existing data
-                                a, b, c, d = 10, 1, 1, 1  # Assuming these are the input values
-                                if (a > product_instance.cable or
-                                    b > product_instance.lnb or
-                                    c > product_instance.dish or
-                                    d > product_instance.kit):
-                                    messages.error(request, "Input data cannot exceed existing data", extra_tags='alert-danger')
-                                    return render(request, 'woc.html', {'form': form})
+                
+                if set_var == 1:
+                    # Subtract from product or to_ret_product based on r_name
+                    if form.cleaned_data.get('r_name').r_name == "kaniyadukam traders":
+                        product_instance = product.objects.first()
+                        if product_instance:
+                            # Check if input data exceeds existing data
+                            a, b, c, d = 10, 1, 1, 1  # Assuming these are the input values
+                            if (a > product_instance.cable or
+                                b > product_instance.lnb or
+                                c > product_instance.dish or
+                                d > product_instance.kit):
+                                messages.error(request, "Input data cannot exceed existing data", extra_tags='alert-danger')
+                                return render(request, 'woc.html', {'form': form})
 
-                                # Proceed with subtraction
-                                product_instance.cable -= a
-                                product_instance.lnb -= b
-                                product_instance.dish -= c
-                                product_instance.kit -= d
-                                product_instance.save()
-                            else:
-                                messages.error(request, "Input data cannot exceed existing data")
+                            # Proceed with subtraction
+                            product_instance.cable -= a
+                            product_instance.lnb -= b
+                            product_instance.dish -= c
+                            product_instance.kit -= d
+                            product_instance.save()
                         else:
-                            to_ret_product_instance = to_ret_product.objects.filter(retailer_id=r_name_id).first()
-                            if to_ret_product_instance:
-                                # Check if input data exceeds existing data
-                                # Similar logic as above
-                                a, b, c, d = 10, 1, 1, 1
-                                if (a > to_ret_product_instance.cable2 or
-                                    b > to_ret_product_instance.lnb2 or
-                                    c > to_ret_product_instance.dish2 or
-                                    d > to_ret_product_instance.kit2):
-                                    messages.error(request, "Input data cannot exceed existing data")
-                                    return render(request, 'woc.html', {'form': form})
-
-                                # Proceed with subtraction
-                                to_ret_product_instance.cable2 -= a
-                                to_ret_product_instance.lnb2 -= b
-                                to_ret_product_instance.dish2 -= c
-                                to_ret_product_instance.kit2 -= d
-                                to_ret_product_instance.save()
-                            else:
+                            messages.error(request, "Input data cannot exceed existing data")
+                    else:
+                        to_ret_product_instance = to_ret_product.objects.filter(retailer_id=r_name_id).first()
+                        if to_ret_product_instance:
+                            # Check if input data exceeds existing data
+                            # Similar logic as above
+                            a, b, c, d = 10, 1, 1, 1
+                            if (a > to_ret_product_instance.cable2 or
+                                b > to_ret_product_instance.lnb2 or
+                                c > to_ret_product_instance.dish2 or
+                                d > to_ret_product_instance.kit2):
                                 messages.error(request, "Input data cannot exceed existing data")
-                        
+                                return render(request, 'woc.html', {'form': form})
+
+                            # Proceed with subtraction
+                            to_ret_product_instance.cable2 -= a
+                            to_ret_product_instance.lnb2 -= b
+                            to_ret_product_instance.dish2 -= c
+                            to_ret_product_instance.kit2 -= d
+                            to_ret_product_instance.save()
+                        else:
+                            messages.error(request, "Input data cannot exceed existing data")
+                    
                     box_product_instance = form.save(commit=False)
                     box_product_instance.set = 1  # Set the set field to 0
                     box_product_instance.save()
                     return redirect('stock_view_all')
-
-                    # Redirect or render a response as needed
-                    # Example redirect: return HttpResponseRedirect('/success/')
+            
                 else:
                     box_product_instance = form.save(commit=False)
-                    box_product_instance.set = 0# Set the set field to 0
-                    box_product_instance.save()  # Save the instance to the database
-
+                    box_product_instance.set = 0  # Set the set field to 0
+                    box_product_instance.save()
                     return redirect('stock_view_all')
     else:
         form = BoxProductForm1(instance=box_product_instance)
