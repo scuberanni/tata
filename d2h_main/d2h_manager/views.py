@@ -161,7 +161,7 @@ def woc(request, pk):
                             product_instance = product.objects.first()
                             if product_instance:
                                 # Check if input data exceeds existing data
-                                a, b, c, d = 10000, 1, 1, 1  # Assuming these are the input values
+                                a, b, c, d = 10, 1, 1, 1  # Assuming these are the input values
                                 if (a > product_instance.cable or
                                     b > product_instance.lnb or
                                     c > product_instance.dish or
@@ -182,7 +182,7 @@ def woc(request, pk):
                             if to_ret_product_instance:
                                 # Check if input data exceeds existing data
                                 # Similar logic as above
-                                a, b, c, d = 10000, 1, 1, 1
+                                a, b, c, d = 10, 1, 1, 1
                                 if (a > to_ret_product_instance.cable2 or
                                     b > to_ret_product_instance.lnb2 or
                                     c > to_ret_product_instance.dish2 or
