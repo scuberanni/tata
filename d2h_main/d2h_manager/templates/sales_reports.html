@@ -61,7 +61,7 @@
                                 {% for product_obj in pr_reports %}
                                 <tr>
                                     <td class="text-center">{{ forloop.counter }}</td>
-                                    <td><a style="text-decoration: none;" href="">{{ product_obj.r_name | upper }}</a>
+                                    <td><a style="text-decoration: none;" href="{% url 'woc' product1.id %}">{{ product_obj.r_name | upper }}</a>
                                     </td>
                                     <td class="b-name">{{ product_obj.b_name | upper }}</td>
                                     <td>{{ product_obj.b_slno | upper }}</td>
