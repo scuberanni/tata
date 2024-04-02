@@ -22,7 +22,7 @@ class box_Form(ModelForm):
             fields='__all__'  
 
 class BoxProductForm1(ModelForm):
-    woc_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    woc_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),required=False)
     class Meta:
         model = box_product
         fields = ['r_name','b_name', 'b_slno', 'b_vscno','woc_date','set']
@@ -96,7 +96,7 @@ class to_ret_Form2(ModelForm):
 
 class sale_ProductForm(ModelForm):
     class Meta:
-        sl_date3 = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+        sl_date3 = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),required=False)
         model = sale_product
         fields = ['cable3', 'lnb3', 'dish3', 'kit3','sl_date3']
         labels = {
@@ -110,7 +110,7 @@ class sale_ProductForm(ModelForm):
 
 class sale_to_ret_Form(ModelForm):
     class Meta:
-        sl_date4 = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+        sl_date4 = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),required=False)
         model = sale_to_ret_product
         fields = ['retailer4', 'cable4', 'lnb4', 'dish4', 'kit4','sl_date4']
         labels = {
