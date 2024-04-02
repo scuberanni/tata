@@ -43,7 +43,7 @@ class box_product(models.Model):
     b_name = models.ForeignKey(box_master, on_delete=models.CASCADE)
     b_slno=models.CharField(max_length=50 ,null=True,blank=True)
     b_vscno=models.CharField(max_length=50 ,null=True,blank=True)
-    woc_date = models.DateField(null=True, blank=True)
+    woc_date = models.DateField(null=True, blank=True )
     set= models.CharField(choices=set_choice , max_length=50 ,null=True )
 
     def __str__(self):
