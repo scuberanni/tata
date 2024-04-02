@@ -30,7 +30,7 @@ def stock_view_ret(request,pk):
 
     retailer_id = product.retailer.id
 
-    products1 = box_product.objects.filter(r_name_id=retailer_id)
+    products1 = box_product.objects.filter(r_name_id=retailer_id,woc_date__isnull=True)
     products = to_ret_product.objects.filter(retailer_id=retailer_id)
 
     retailer = retailer_master.objects.get(id=retailer_id)

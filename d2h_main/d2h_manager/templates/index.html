@@ -123,7 +123,8 @@
                                     <td class="text-center">{{product1.lnb |upper}}</td>
                                     <td class="text-center">{{product1.cable |upper}}</td>
                                     <td class="text-center">{{product1.kit |upper}}</td>
-                                    <td class="text-center">0</td>
+                                    <td class="text-center"><a href="" style="text-decoration: none; color: rgb(0, 0, 0);">
+                                        <i class="fa-solid fa-right-from-bracket"></i></a></td>
                                 </tr>
                                 {% endfor %}
                                 {% for product in products %}
@@ -138,9 +139,8 @@
                                     {% if product.b_name == 0 %}
                                     <td class="text-center">0</td> <!-- Display default quantity as 0 -->
                                     {% else %}
-                                    <td class="text-center"><a href="{% url 'stock_view_ret' product.id %}"
-                                            style="text-decoration: none;">
-                                            {{product.retailer.box_product_set.count }}</a></td>
+                                    <td class="text-center"><a href="{% url 'stock_view_ret' product.id %}" style="text-decoration: none;color: rgb(0, 0, 0);">
+                                        <i class="fa-solid fa-right-from-bracket"></i></a></td>
                                     <!-- Counting quantity -->
                                     {% endif %}
                                 </tr>
