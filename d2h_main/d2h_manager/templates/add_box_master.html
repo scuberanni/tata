@@ -1,8 +1,6 @@
 {% extends 'blank_layout.html' %}
 {% load static %}
 
-
-
 {% block content %}
 <div class="container pt-3">
     <div class="col-12">
@@ -13,32 +11,41 @@
             {% for form in formset %}
                 <div class="row mb-12">
                     <div class="col-6 col-md-2">
-                        <h6 style=" color: rgb(0, 0, 0);">Retailer Name</h6>
+                        <h6 style="color: rgb(0, 0, 0);">Retailer Name</h6>
                         {{ form.r_name }}
+                        {% for error in form.r_name.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
                     </div>
                     <div class="col-6 col-md-2">
                         <h6 style="color: rgb(0, 0, 0);">Box Type</h6>
                         {{ form.b_name }}
+                        {% for error in form.b_name.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
                     </div>
                     <div class="col-6 col-md-2">
                         <h6 style="color: rgb(0, 0, 0);">SL NO</h6>
                         {{ form.b_slno }}
+                        {% for error in form.b_slno.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
                     </div>
                     <div class="col-6 col-md-2" style="padding-left: 20px;">
                         <div>
                             <h6 style="color: rgb(0, 0, 0);">VSC NO</h6>
-                        {{ form.b_vscno }}
+                            {{ form.b_vscno }}
+                            {% for error in form.b_vscno.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             {% endfor %}
             <div class="pt-2">
                 <button type="submit" class="btn btn-primary">Save</button>
-            </DIV>
+            </div>
         </form>
     </div>
 </div>
-
-
-
 {% endblock %}

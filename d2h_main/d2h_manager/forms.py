@@ -44,7 +44,22 @@ class BoxProductForm(ModelForm):
             'b_name': 'Custom Label for Field 2',
             'b_slno': 'Custom Label for Field 3',
             'b_vscno': 'Custom Label for Field 4',
-        }        
+        }      
+
+    def clean(self):
+        cleaned_data = super().clean()
+        b_slno = cleaned_data.get('b_slno')
+        b_vscno = cleaned_data.get('b_vscno')
+
+        # Check if b_slno already exists
+        if b_slno and box_product.objects.filter(b_slno=b_slno).exists():
+            self.add_error('b_slno', 'This b_slno already exists.')
+
+        # Check if b_vscno already exists
+        if b_vscno and box_product.objects.filter(b_vscno=b_vscno).exists():
+            self.add_error('b_vscno', 'This b_vscno already exists.')
+
+        return cleaned_data  
         
 
 class BoxRetailerForm(ModelForm):
