@@ -61,6 +61,16 @@ class BoxProductForm(ModelForm):
 
         return cleaned_data  
         
+class BoxProductForm2(ModelForm):
+    class Meta:
+        model = box_product
+        fields = ['r_name','b_name', 'b_slno', 'b_vscno']
+        labels = {
+            'r_name': 'Custom Label for Field 1',
+            'b_name': 'Custom Label for Field 2',
+            'b_slno': 'Custom Label for Field 3',
+            'b_vscno': 'Custom Label for Field 4',
+        }
 
 class BoxRetailerForm(ModelForm):
     class Meta:

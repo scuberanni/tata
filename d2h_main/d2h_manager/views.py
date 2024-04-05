@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect ,get_object_or_404
 from.models import product_master,retailer_master,box_master,product,to_ret_product,box_product,ret_ret
 from.forms import Pr_Form,box_Form,ret_Form,ProductForm,to_ret_Form,to_ret_Form2,sale_ProductForm,sale_to_ret_Form
 from django.forms import formset_factory
-from .forms import BoxProductForm,BoxProductForm1,RetailerForm
+from .forms import BoxProductForm,BoxProductForm2,BoxProductForm1,RetailerForm
 from django.db.models import Q
 from django.db import transaction
 from django.contrib import messages
@@ -125,13 +125,13 @@ def box_details_edit(request,pk):
     box_product_instance = get_object_or_404(box_product, pk=pk)
     
     if request.method == 'POST':
-        form = BoxProductForm(request.POST, instance=box_product_instance)
+        form = BoxProductForm2(request.POST, instance=box_product_instance)
         if form.is_valid():
             form.save()
             # Redirect to a success page, or any other desired action
             return redirect('stock_view_all')
     else:
-        form = BoxProductForm(instance=box_product_instance)
+        form = BoxProductForm2(instance=box_product_instance)
     
     return render(request, 'box_details_edit.html', {'form': form})
 
