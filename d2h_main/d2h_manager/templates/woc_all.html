@@ -2,6 +2,14 @@
 {% load static %}
 
 {% block content %}
+<!-- DataTables CSS -->
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- DataTables JavaScript -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
 <div class="container-fluid">
     <div class="row">
         <div class="onlypc1 pt-3 ">
@@ -58,22 +66,15 @@
                                     <td class="text-center">{{product1.b_slno |upper}}</td>
                                     <td class="text-center vscNo">{{product1.b_vscno |upper}}</td>
                                     <td class="text-center">
-                                        <a href="{% url 'woc' product1.id %}"> <button
-                                                style="height: 35px;width: 35px; padding-left: 10px;"
-                                                class="btn btn-dark"><i
-                                                    class="fa-solid fa-calendar-xmark"></i></button></a>
-                                        <a href="{% url 'box_details_edit' product1.id %}"> <button
-                                                style="height: 35px;width: 35px; padding-left: 10px;"
-                                                class="btn btn-info"><i
-                                                    class="fa-solid fa-pen-to-square"></i></button></a>
-                                        <a href="{% url 'box_details_delete' product1.id %}"> <button
-                                                style="height: 35px;width: 35px;padding-left: 10px;"
-                                                class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
+                                        <a href="{% url 'woc' product1.id %}"> <button style="height: 35px;width: 35px; padding-left: 10px;" class="btn btn-dark"><i class="fa-solid fa-calendar-xmark"></i></button></a>
+                                        <a href="{% url 'box_details_edit' product1.id %}"> <button style="height: 35px;width: 35px; padding-left: 10px;" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                                        <a href="{% url 'box_details_delete' product1.id %}"> <button style="height: 35px;width: 35px;padding-left: 10px;" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
                                     </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
             </div>
@@ -181,6 +182,13 @@
         document.getElementById("totalCount").innerText = "" + totalCount;
         document.getElementById("totalCount1").innerText = "" + totalCount1; // Update the HTML element with the count
         document.getElementById("totalCount2").innerText = "" + totalCount3 - totalCount - totalCount1; 
+
+            $(document).ready( function () {
+            $('#example').DataTable({
+                "paging": true,
+                "pageLength": 15 // Show 15 rows per page
+            });
+        });
     </script>
 
     {% endblock %}
