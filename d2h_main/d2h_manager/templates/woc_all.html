@@ -24,15 +24,17 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="px-4 pt-2">
-                    <input type="text" id="searchInput" class="form-control mb-3 " placeholder="Filter by VSC No">
-                </div>
-                <div class="px-4 pt-0">
-                    <input type="text" id="searchInput1" class="form-control mb-3 " placeholder="Filter by SL No">
-                </div>
-                <div class="px-4 pt-0">
-                    <input type="text" id="searchInput2" class="form-control mb-3 " placeholder="Filter by Box Name">
+                <div class="row px-3">
+                    <div class="px-4 pt-0 col-md-4">
+                        <input type="text" id="searchInput" class="form-control mb-3 " placeholder="Filter by VSC No">
+                    </div>
+                    <div class="px-4 pt-0 col-md-4">
+                        <input type="text" id="searchInput1" class="form-control mb-3 " placeholder="Filter by SL No">
+                    </div>
+                    <div class="px-4 pt-0 col-md-4">
+                        <input type="text" id="searchInput2" class="form-control mb-3 "
+                            placeholder="Filter by Box Name">
+                    </div>
                 </div>
                 <div class="p-2">
                     <div class="p-2">
@@ -178,7 +180,7 @@
         // Update the total count in the HTML
         document.getElementById("totalCount").innerText = "" + totalCount;
         document.getElementById("totalCount1").innerText = "" + totalCount1; // Update the HTML element with the count
-        document.getElementById("totalCount2").innerText = "" + totalCount3-totalCount-totalCount1; 
+        document.getElementById("totalCount2").innerText = "" + totalCount3 - totalCount - totalCount1; 
     </script>
 
     {% endblock %}
