@@ -13,7 +13,7 @@
                 <div class="gradient-cards">
                     <div class="card1">
                         <div class="container-card bg-green-box">
-                            <div class="col-12 col-lg-12 " style="height: 360px;">
+                            <div class="col-12 col-lg-12">
                                 <ul>
                                     <li>
                                         <a href="#" class="a1" style="padding-left: 20px; padding-top: 20px;">
@@ -26,8 +26,8 @@
                                             {% for product_obj in boxes %}
                                             <tr>
                                                 <td class="pt-2">
-                                                    <h7 class="h12" style="color: aliceblue;">{{product_obj.b_name | upper}} &nbsp;
-                                                    </h7>
+                                                    <h6 class="h12" style="color: aliceblue;">{{product_obj.b_name | upper}} &nbsp;
+                                                    </h6>
                                                 </td>
                                                 <td>
                                                     <a href="{% url 'box_edit' product_obj.id %}"

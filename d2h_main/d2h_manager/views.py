@@ -155,7 +155,7 @@ def woc(request, pk):
                 
                 if set_var == 1:
                     # Subtract from product or to_ret_product based on r_name
-                    if form.cleaned_data.get('r_name').r_name == "kaniyadukam traders":
+                    if form.cleaned_data.get('r_name').r_name == "Distributor BOX":
                         product_instance = product.objects.first()
                         if product_instance:
                             # Check if input data exceeds existing data
