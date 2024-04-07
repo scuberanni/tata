@@ -10,20 +10,20 @@ from django.contrib import messages
 
 # Create your views here.
 def home(request):
-
+    
     products = to_ret_product.objects.all()[:9]
     products1=product.objects.all()
-
+    
     return render(request, 'index.html', {'products': products,'products1': products1})
 
 def admin(request):
     return render(request,'admin')
 
 def stock_view(request):
-
+    
     products = to_ret_product.objects.all()
     products1=product.objects.all()
-    return render(request, 'stock_view.html', {'products': products,'products1': products1})
+    return render(request, 'stock_view.html', {'products': products,'products1': products1}) 
 
 def stock_view_ret(request,pk):
     product = to_ret_product.objects.get(pk=pk)
@@ -64,42 +64,42 @@ def stock_view_all(request):
                 return render(request, 'stock_view_all.html', {'products': products, 'products1': products1, 'products3': products3, 'products4': products4,'products5': products5,})
             else:
                 # Render error template if retailer not found
-                return render(request, 'error.html', {'message': 'Retailer not found.'})
+                return render(request, 'error.html', {'message': 'Retailer not found.'})  
     else:
         form = RetailerForm()  # Initialize the form with no data for initial rendering
-
+        
         # Fetch all products if it's not a POST request
         products3 = product.objects.all()
         products4 = box_product.objects.filter(Q(r_name_id='2') | Q(r_name_id=None))
-
+    
     return render(request, 'stock_view_all.html', {'form': form, 'products3': products3,'products4': products4,})
 
 def detail_view(request):
     categories = retailer_master.objects.all()
-    return render(request, 'details.html', {'categories': categories})
+    return render(request, 'details.html', {'categories': categories})  
 
-def pr_master(request):
+def pr_master(request): 
     frm=Pr_Form()
     if request.POST:
         frm=Pr_Form(request.POST,request.FILES)
         if frm.is_valid():
             frm.save()
             return redirect('pr_master')
-
+            
     else:
-        frm=Pr_Form()
+        frm=Pr_Form()        
     return render(request,'pr_master.html',{'frm':frm})
 
-def bo_master(request):
+def bo_master(request): 
     frm=box_Form()
     if request.POST:
         frm=box_Form(request.POST,request.FILES)
         if frm.is_valid():
             frm.save()
             return redirect('bo_master')
-
+            
     else:
-        frm1=box_Form()
+        frm1=box_Form()        
     return render(request,'pr_master.html',{'frm':frm})
 
 def add_box_master(request):
@@ -123,16 +123,16 @@ def add_box_master(request):
 
 def box_details_edit(request,pk):
     box_product_instance = get_object_or_404(box_product, pk=pk)
-
+    
     if request.method == 'POST':
         form = BoxProductForm2(request.POST, instance=box_product_instance)
         if form.is_valid():
             form.save()
             # Redirect to a success page, or any other desired action
-            return redirect('close_box_master')
+            return redirect('stock_view_all')
     else:
         form = BoxProductForm2(instance=box_product_instance)
-
+    
     return render(request, 'box_details_edit.html', {'form': form})
 
 def woc(request, pk):
@@ -152,7 +152,7 @@ def woc(request, pk):
                 else:
                     set_var = None  # Handle other cases if needed
 
-
+                
                 if set_var == 1:
                     # Subtract from product or to_ret_product based on r_name
                     if form.cleaned_data.get('r_name').r_name == "Distributor BOX":
@@ -196,17 +196,17 @@ def woc(request, pk):
                             to_ret_product_instance.save()
                         else:
                             messages.error(request, "Input data cannot exceed existing data")
-
+                    
                     box_product_instance = form.save(commit=False)
                     box_product_instance.set = 1  # Set the set field to 0
                     box_product_instance.save()
-                    return redirect('close_box_master')
-
+                    return redirect('stock_view_all')
+            
                 else:
                     box_product_instance = form.save(commit=False)
                     box_product_instance.set = 0  # Set the set field to 0
                     box_product_instance.save()
-                    return redirect('close_box_master')
+                    return redirect('stock_view_all')
     else:
         form = BoxProductForm1(instance=box_product_instance)
 
@@ -215,22 +215,22 @@ def woc(request, pk):
 def box_details_delete(request,pk):
     # Retrieve the box_product instance by its primary key (pk)
     box_product_instance = get_object_or_404(box_product, pk=pk)
-
+    
     # Check if the request method is POST
     if request.method == 'POST':
         # Delete the box_product instance
         box_product_instance.delete()
-
+        
         # Redirect to a success page or any other desired action
-        return redirect('close_box_master')
-
+        return redirect('stock_view_all')
+    
     # If the request method is not POST, render a confirmation page
     return render(request, 'box_details_delete.html', {'box_product_instance': box_product_instance})
 
 def close_box_master(request):
-
+    
     products1 = box_product.objects.filter(woc_date__isnull=True)
-    return render(request, 'woc_all.html', {'products1':products1})
+    return render(request, 'woc_all.html', {'products1':products1}) 
 
 def box_edit(request,pk):
     instance_edit=box_master.objects.get(pk=pk)
@@ -240,16 +240,16 @@ def box_edit(request,pk):
             instance_edit.save()
             return redirect('master')
     else:
-       frm=box_Form(instance=instance_edit)
+       frm=box_Form(instance=instance_edit) 
     return render(request,'box_master.html',{'frm':frm})
 
 def box_dlt(request,pk):
     instance_dlt= get_object_or_404(box_master, pk=pk)
     if request.method == 'POST':
-
+        
             instance_dlt.delete()
             return redirect('master')
-
+     
     return render(request,'delete.html',{'box_product_instance':instance_dlt})
 
 def product_edit(request,pk):
@@ -260,16 +260,16 @@ def product_edit(request,pk):
             instance_edit.save()
             return redirect('master')
     else:
-       frm=Pr_Form(instance=instance_edit)
+       frm=Pr_Form(instance=instance_edit) 
     return render(request,'pr_master.html',{'frm':frm})
 
 def product_dlt(request,pk):
     instance_dlt= get_object_or_404(product_master, pk=pk)
     if request.method == 'POST':
-
+        
             instance_dlt.delete()
             return redirect('master')
-
+     
     return render(request,'delete.html',{'box_product_instance':instance_dlt})
 
 def retailer_edit(request,pk):
@@ -280,7 +280,7 @@ def retailer_edit(request,pk):
             instance_edit.save()
             return redirect('master')
     else:
-       frm=ret_Form(instance=instance_edit)
+       frm=ret_Form(instance=instance_edit) 
     return render(request,'ret_master.html',{'frm':frm})
 
 def retailer_edit1(request,pk):
@@ -291,28 +291,28 @@ def retailer_edit1(request,pk):
             instance_edit.save()
             return redirect('stock_view_all')
     else:
-       frm=ret_Form(instance=instance_edit)
+       frm=ret_Form(instance=instance_edit) 
     return render(request,'ret_master.html',{'frm':frm})
 
 def retailer_dlt(request,pk):
     instance_dlt= get_object_or_404(retailer_master, pk=pk)
     if request.method == 'POST':
-
+        
             instance_dlt.delete()
             return redirect('master')
-
+     
     return render(request,'delete.html',{'box_product_instance':instance_dlt})
 
-def ret_master(request):
+def ret_master(request): 
     frm=ret_Form()
     if request.POST:
         frm=ret_Form(request.POST,request.FILES)
         if frm.is_valid():
             frm.save()
             return redirect('ret_master')
-
+            
     else:
-        frm=ret_Form()
+        frm=ret_Form()        
     return render(request,'pr_master.html',{'frm':frm})
 
 def master(request):
@@ -329,14 +329,14 @@ def add_product(request):
             lnb = form.cleaned_data['lnb']
             dish = form.cleaned_data['dish']
             kit = form.cleaned_data['kit']
-
+            
             # Check if the product already exists in the database
             existing_product = product.objects.first()  # You may need to change this query
-
+            
             if existing_product:
                 # Update existing product's quantities
                 existing_product.cable += cable
-                existing_product.lnb += lnb
+                existing_product.lnb += lnb 
                 existing_product.dish += dish
                 existing_product.kit += kit
                 existing_product.save()
@@ -349,11 +349,11 @@ def add_product(request):
                     kit=kit
                 )
                 new_product.save()
-
+            
             return redirect('add_product')  # Redirect to the same page after successful submission
     else:
         form = ProductForm()
-
+    
     return render(request, 'add_product.html', {'form': form})
 
 def ret_product(request):
@@ -361,7 +361,7 @@ def ret_product(request):
 
     if request.method == 'POST':
         form = to_ret_Form(request.POST)
-
+        
         if form.is_valid():
             # Collect form data
             retailer2 = form.cleaned_data['retailer']
@@ -372,7 +372,7 @@ def ret_product(request):
 
             # Check if the product already exists in the database
             existing_product = product.objects.first()  # Update this query
-
+            
             if existing_product:
                 # Check if input data exceeds existing data
                 if (cable2 > existing_product.cable or
@@ -383,7 +383,7 @@ def ret_product(request):
                 else:
                     # Update existing product's quantities
                     existing_product.cable -= cable2
-                    existing_product.lnb -= lnb2
+                    existing_product.lnb -= lnb2 
                     existing_product.dish -= dish2
                     existing_product.kit -= kit2
                     existing_product.save()
@@ -391,7 +391,7 @@ def ret_product(request):
                     # Create or update to_ret_product
                     new_to_ret_product, created = to_ret_product.objects.get_or_create(retailer=retailer2)
                     new_to_ret_product.cable2 += cable2
-                    new_to_ret_product.lnb2 += lnb2
+                    new_to_ret_product.lnb2 += lnb2 
                     new_to_ret_product.dish2 += dish2
                     new_to_ret_product.kit2 += kit2
                     new_to_ret_product.save()
@@ -399,15 +399,15 @@ def ret_product(request):
                     return redirect('ret_product')  # Replace 'some_url_name' with a valid URL name
             else:
                 messages.error(request, "No existing product found.")
-
+        
     # This line should be outside the if block
     return render(request, 'ret_product.html', {'form': form})
 
 def ret_home(request):
-
+    
     form1= to_ret_Form()
     form2= to_ret_Form2()
-
+    
     return render(request, 'ret_kan.html', {'form': form1,'form2': form2})
 
 def ret_kan(request):
@@ -415,8 +415,8 @@ def ret_kan(request):
 
     if request.method == 'POST':
         form = to_ret_Form(request.POST)
-
-
+        
+        
         if form.is_valid():
             # Collect form data
             retailer = form.cleaned_data['retailer']
@@ -427,8 +427,8 @@ def ret_kan(request):
 
             # Check if the product already exists in the database
             existing_product = product.objects.first()  # You may need to change this query
-            existing1_product = to_ret_product.objects.filter(retailer=retailer).first()
-
+            existing1_product = to_ret_product.objects.filter(retailer=retailer).first() 
+            
             if existing1_product:
                 # Check if the input data exceeds existing data
                 if (cable2 > existing1_product.cable2 or
@@ -439,7 +439,7 @@ def ret_kan(request):
                 else:
                     # Update existing product's quantities
                     existing_product.cable += cable2
-                    existing_product.lnb += lnb2
+                    existing_product.lnb += lnb2 
                     existing_product.dish += dish2
                     existing_product.kit += kit2
                     existing_product.save()
@@ -447,12 +447,12 @@ def ret_kan(request):
                     # Create or update to_ret_product
                     new_product, created = to_ret_product.objects.get_or_create(retailer=retailer)
                     new_product.cable2 -= cable2
-                    new_product.lnb2 -= lnb2
+                    new_product.lnb2 -= lnb2 
                     new_product.dish2 -= dish2
                     new_product.kit2 -= kit2
-                    new_product.save()
-
-
+                    new_product.save() 
+                    
+                      
 
                     return redirect('ret_home')  # Redirect to the same page after successful submission
             else:
@@ -460,7 +460,7 @@ def ret_kan(request):
                 return redirect('ret_home')   # Handle case where no product exists
     else:
         form = to_ret_Form()
-
+    
     return render(request, 'ret_kan.html', {'form': form})
 
 def ret_ret(request):
@@ -498,20 +498,20 @@ def ret_ret(request):
 
                     # Create or update to_ret_product for r2
                     existing2_product, created2 = to_ret_product.objects.get_or_create(retailer=r2)
-
+                    
                     existing2_product.cable2 += a
                     existing2_product.lnb2 += b
                     existing2_product.dish2 += c
                     existing2_product.kit2 += d
-                    existing2_product.save()
+                    existing2_product.save() 
 
                     return redirect('ret_home')  # Redirect to the same page after successful submission
             else:
                 form.add_error(None, "No existing product found for retailer 1")
                 return redirect('ret_home')
         else:
-            form = to_ret_Form2()
-
+            form = to_ret_Form2()       
+    
     return render(request, 'ret_kan.html', {'form2': form2})
 
 def sale_ret_product(request):
@@ -519,20 +519,20 @@ def sale_ret_product(request):
 
     if request.method == 'POST':
         form = sale_ProductForm(request.POST)
-
+        
         if form.is_valid():
             # Collect form data
-
+            
             cable3 = form.cleaned_data['cable3']
             lnb3 = form.cleaned_data['lnb3']
             dish3 = form.cleaned_data['dish3']
             kit3 = form.cleaned_data['kit3']
-
+            
 
             # Check if the product already exists in the database
             existing_product = product.objects.first()  # You may need to change this query
-
-
+             
+            
             if existing_product:
                 # Check if the input data exceeds existing data
                 if (cable3 > existing_product.cable or
@@ -551,17 +551,17 @@ def sale_ret_product(request):
                     existing_product.kit -= kit3
                     existing_product.save()
 
-
-
-
-
+                    
+                    
+                    
+                      
                     return redirect('sale_ret_product')  # Redirect to the same page after successful submission
             else:
                 form.add_error(None, "No existing product found")  # Handle case where no product exists
     else:
-        form = sale_ProductForm()
-
-
+        form = sale_ProductForm()    
+    
+    
     return render(request, 'sale_ret_product.html', {'form': form})
 
 def sale_ret_kan(request):
@@ -569,20 +569,20 @@ def sale_ret_kan(request):
 
     if request.method == 'POST':
         form = sale_to_ret_Form(request.POST)
-
+        
         if form.is_valid():
             # Collect form data
-
+            
             cable4 = form.cleaned_data['cable4']
             lnb4 = form.cleaned_data['lnb4']
             dish4 = form.cleaned_data['dish4']
             kit4 = form.cleaned_data['kit4']
-
+            
 
             # Check if the product already exists in the database
             existing_product = to_ret_product.objects.first()  # You may need to change this query
-
-
+             
+            
             if existing_product:
                 # Check if the input data exceeds existing data
                 if (cable4 > existing_product.cable2 or
@@ -601,21 +601,21 @@ def sale_ret_kan(request):
                     existing_product.kit2 -= kit4
                     existing_product.save()
 
-
-
-
-
+                    
+                    
+                    
+                      
                     return redirect('sale_ret_kan')  # Redirect to the same page after successful submission
             else:
                 form.add_error(None, "No existing product found")  # Handle case where no product exists
     else:
-        form = sale_to_ret_Form()
-
-
+        form = sale_to_ret_Form()    
+    
+    
     return render(request, 'sale_ret_kan.html', {'form': form})
 
 def search(request):
-
+    
     if request.method == 'GET':
         b_vscno = request.GET.get('b_vscno')
         b_slno = request.GET.get('b_slno')
@@ -628,24 +628,24 @@ def search(request):
 
         if b_slno:
             box_products = box_product.objects.all()
-            box_products = box_products.filter(b_slno__icontains=b_slno)
-
+            box_products = box_products.filter(b_slno__icontains=b_slno) 
+     
         return render(request, 'search.html',{'box_products': box_products})
-
+    
 def sales_reports(request):
 
     if request.method=='POST':
-
+        
         S_date=request.POST.get('start_date1')
         E_date=request.POST.get('end_date1')
         P_rep=box_product.objects.filter(woc_date__gte=S_date,woc_date__lte=E_date).order_by('woc_date')
 
-
+       
         return render ( request,'sales_reports.html',{'pr_reports':P_rep})
     else:
-
-        return render(request,'sales_reports.html',)
-
+         
+        return render(request,'sales_reports.html',) 
+         
 
 
 
