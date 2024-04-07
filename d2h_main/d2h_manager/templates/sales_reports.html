@@ -10,6 +10,8 @@
             .table-container {
                 overflow-x: auto;
             }
+
+            
         </style>
 
         <section class="container  bg-primary rounded-top-4">
@@ -61,7 +63,8 @@
                                 {% for product_obj in pr_reports %}
                                 <tr>
                                     <td class="text-center">{{ forloop.counter }}</td>
-                                    <td><a style="text-decoration: none;" href="{% url 'woc' product_obj.id %}">{{ product_obj.r_name | upper }}</a>
+                                    <td><a style="text-decoration: none;" href="{% url 'woc' product_obj.id %}">
+                                            {{product_obj.r_name | upper }}</a>
                                     </td>
                                     <td class="b-name">{{ product_obj.b_name | upper }}</td>
                                     <td>{{ product_obj.b_slno | upper }}</td>
@@ -74,11 +77,25 @@
                         </table>
                     </div>
                     <!-- Display total sum of the FULL SET column -->
-                    <p id="totalSum"></p>
-                    <!-- Display count of "pana" and "navya" boxes -->
-                    <p id="countPanaNavya"></p>
-                    <!-- Display total count of "pana" and "navya" in the B_NAME column -->
-                    <p id="totalPanaNavya"></p>
+                    <div class="ontainer">
+                        <div class="row">
+                            <div class="col-4 pb-1">
+                                <div class="btn btn-warning  text-center w-100" style="height: 40px;">
+                                    <p id="totalSum"></p>
+                                </div>
+                            </div>
+                            <div class="col-4 pb-3">
+                                <div class="btn btn-warning  text-center w-100" style="height: 40px;">
+                                    <p id="countPanaNavya"></p>
+                                </div>
+                            </div>
+                            <div class="col-4 pb-3">
+                                <div class="btn btn-warning  text-center w-100" style="height: 40px;">
+                                    <p class="" id="totalPanaNavya"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -107,7 +124,7 @@
 
         for (let cell of bNameCells) {
             const value = cell.innerText.trim().toLowerCase();
-            if (value === 'pana box') {
+            if (value === 'panna box') {
                 countPana++;
             } else if (value === 'navya box') {
                 countNavya++;
@@ -116,14 +133,14 @@
 
         // Display count of "pana" and "navya"
         const countPanaNavyaElement = document.getElementById('countPanaNavya');
-        countPanaNavyaElement.innerText = 'Count of Pana box: ' + countPana + ', Count of Navya box: ' + countNavya;
+        countPanaNavyaElement.innerText = 'Count of Panna box: ' + countPana + ' - Count of Navya box: ' + countNavya;
 
         // Calculate total count of "pana" and "navya" in the B_NAME column
         const totalPanaNavya = countPana + countNavya;
 
         // Display total count of "pana" and "navya"
         const totalPanaNavyaElement = document.getElementById('totalPanaNavya');
-        totalPanaNavyaElement.innerText = 'Total Count of boxes: ' + totalPanaNavya;
+        totalPanaNavyaElement.innerText = 'Total Count of Panna & Navya boxes: ' + totalPanaNavya;
     });
 </script>
 

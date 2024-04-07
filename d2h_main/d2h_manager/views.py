@@ -206,7 +206,7 @@ def woc(request, pk):
                     box_product_instance = form.save(commit=False)
                     box_product_instance.set = 0  # Set the set field to 0
                     box_product_instance.save()
-                    return redirect('close_box_masterl')
+                    return redirect('close_box_master')
     else:
         form = BoxProductForm1(instance=box_product_instance)
 
