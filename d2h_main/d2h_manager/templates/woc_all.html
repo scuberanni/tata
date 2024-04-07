@@ -31,6 +31,11 @@
         pointer-events: none;
         background-color: transparent;
     }
+    @media (max-width: 767px) {
+    .table-container {
+        overflow-x: auto;
+    }
+}
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -39,21 +44,21 @@
                 <h2 class="text-white px-4 p-2 ">ALL Box Details</h2>
                 <div class="container-fluid">
                     <div class="row px-3 p-0">
-                        <h6 class="col-md-4 alert alert-info" style="margin-right: 10px;height:50px;">Panna Box:</h6>
+                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">Panna Box:</h6>
                         <div id="totalCount" style="margin-right: 50px;height:50px;"
-                            class="alert alert-info col-md-1 text-center" role="alert">
+                            class="alert alert-info col-md-1 col-2 text-center" role="alert">
                         </div>
-                        <h6 class="col-md-4 alert alert-info" style="margin-right: 10px;height:50px;">Navya Box:</h6>
+                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">Navya Box:</h6>
                         <div id="totalCount1" style="margin-right: 50px;height:50px;"
-                            class="alert alert-info col-md-1 text-center" role="alert">
+                            class="alert alert-info col-md-1 col-2 text-center" role="alert">
                         </div>
-                        <h6 class="col-md-4 alert alert-info" style="margin-right: 10px;height:50px;">Others:</h6>
+                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">Others:</h6>
                         <div id="totalCount2" style="margin-right: 50px;height:50px;"
-                            class="alert alert-info col-md-1 text-center" role="alert">
+                            class="alert alert-info col-md-1 col-2 text-center" role="alert">
                         </div>
-                        <h6 class="col-md-4 alert alert-info" style="margin-right: 10px;height:50px;">All Boxes:</h6>
+                        <h6 class="col-md-4 col-6 alert alert-info" style="margin-right: 10px;height:50px;">All Boxes:</h6>
                         <div id="totalCount3" style="margin-right: 50px;height:50px;"
-                            class="alert alert-info col-md-1 text-center" role="alert">
+                            class="alert alert-info col-md-1 col-2 text-center" role="alert">
                         </div>
                     </div>
                 </div>
@@ -64,7 +69,7 @@
                     </div>
                     
                 </div>
-                <div class="p-2">
+                <div class="p-2 table-container">
                     <div class="p-2">
                         <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
                             <thead>
