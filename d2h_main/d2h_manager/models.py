@@ -82,6 +82,7 @@ class to_ret_product(models.Model):
     lnb2=models.PositiveIntegerField(default=0,null=True)
     dish2=models.PositiveIntegerField(default=0,null=True) 
     kit2=models.PositiveIntegerField(default=0,null=True)
+    box2=models.PositiveIntegerField(default=0,null=True)
 
     def __str__(self):
         return f"retailer: {self.retailer}"

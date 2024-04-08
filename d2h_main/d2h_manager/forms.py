@@ -72,6 +72,14 @@ class BoxProductForm2(ModelForm):
             'b_vscno': 'Custom Label for Field 4',
         }
 
+class adjust_form(ModelForm):
+    class Meta:
+        model = to_ret_product
+        fields = ['retailer']
+        labels = {
+            'retailer': 'Custom Label for Field 1',
+        }
+
 class BoxRetailerForm(ModelForm):
     class Meta:
         model = box_retailer_master

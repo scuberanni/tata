@@ -130,19 +130,16 @@
                                 {% for product in products %}
                                 <tr>
 
-                                    <td class="text-center">{{ forloop.counter0|add:2 }}</td>
+                                    
+                                    <td class="text-center"><a style="text-decoration: none;color: black;" href="{% url 'adjust_box' %}">
+                                        {{ forloop.counter0|add:2 }}</a></td>
                                     <td class="">{{product.retailer |upper}}</td>
                                     <td class="text-center">{{product.dish2 |upper}}</td>
                                     <td class="text-center">{{product.lnb2 |upper}}</td>
                                     <td class="text-center">{{product.cable2 |upper}}</td>
                                     <td class="text-center">{{product.kit2 |upper}}</td>
-                                    {% if product.b_name == 0 %}
-                                    <td class="text-center">0</td> <!-- Display default quantity as 0 -->
-                                    {% else %}
-                                    <td class="text-center"><a href="{% url 'stock_view_ret' product.id %}" style="text-decoration: none;color: rgb(0, 0, 0);">
-                                        <i class="fa-solid fa-right-from-bracket"></i></a></td>
-                                    <!-- Counting quantity -->
-                                    {% endif %}
+                                    <td class="text-center"><a style="text-decoration: none;color: red; font-weight: bold;" href="{% url 'stock_view_ret' product.id %}">
+                                        {{product.box2 |upper}}</a></td>
                                 </tr>
                                 {% endfor %}
 

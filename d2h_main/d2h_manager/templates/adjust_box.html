@@ -1,0 +1,54 @@
+{% extends 'blank_layout.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="container">
+
+    <body class="text-centre">
+        <div class="px-4 pt-4">
+            <h2 class="text-white px-4">Box QTY Adjustment</h2>
+        </div>
+        <div class="row">
+            <div class="form-group col-4 col-md-12">
+                <form class="pt-1 px-4" action="" method="post" style="color:white;">
+
+                    <div class="container">
+                        <div class="row pt-3">
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field1">RETAILER:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                {{ form.retailer }}
+                            </div>
+                            <div class="col-3 col-md-1 pt-2">
+                                {% csrf_token %}
+                                <label for="id_field2">QTY:</label>
+                            </div>
+                            <div class="col-9 col-md-11">
+                                <input type="number" name="adjustment" id="adjustment" required>
+                            </div>
+                            <div class="col-3 col-md-2 pt-3">
+                                <button type="submit" class="btn btn-danger" style="width: 150PX;" name="action" value="subtract">Subtract</button>
+                            </div>
+                            <div class="col-3 col-md-2 pt-3">
+                                <button type="submit" class="btn btn-success" style="width: 150PX;" name="action" value="add">Add</button>
+                            </div>
+                            
+                            
+                            
+                            
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</div>
+
+
+{% endblock %}

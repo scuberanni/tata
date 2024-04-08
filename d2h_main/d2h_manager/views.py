@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect ,get_object_or_404
 from.models import product_master,retailer_master,box_master,product,to_ret_product,box_product,ret_ret
 from.forms import Pr_Form,box_Form,ret_Form,ProductForm,to_ret_Form,to_ret_Form2,sale_ProductForm,sale_to_ret_Form
 from django.forms import formset_factory
-from .forms import BoxProductForm,BoxProductForm2,BoxProductForm1,RetailerForm
+from .forms import BoxProductForm,BoxProductForm2,BoxProductForm1,RetailerForm,adjust_form
 from django.db.models import Q
 from django.db import transaction
 from django.contrib import messages
@@ -111,6 +111,15 @@ def add_box_master(request):
                 if form.cleaned_data.get('b_name'):
                     # Create a new box master instance
                     box_master_instance = form.save()
+
+                    # Increment box2 for the corresponding retailer
+                    retailer_name = box_master_instance.r_name
+                    try:
+                        to_ret_product_instance = to_ret_product.objects.get(retailer=retailer_name)
+                        to_ret_product_instance.box2 += 1
+                        to_ret_product_instance.save()
+                    except to_ret_product.DoesNotExist:
+                        return redirect('add_box_master')    
                     messages.success(request, "Box master added successfully.")
                 else:
                     messages.error(request, "No existing product found.")
@@ -121,15 +130,33 @@ def add_box_master(request):
         formset = BoxMasterFormSet()
     return render(request, 'add_box_master.html', {'formset': formset})
 
-def box_details_edit(request,pk):
+def box_details_edit(request, pk):
     box_product_instance = get_object_or_404(box_product, pk=pk)
+    old_retailer_name = box_product_instance.r_name
     
     if request.method == 'POST':
         form = BoxProductForm2(request.POST, instance=box_product_instance)
         if form.is_valid():
+            new_retailer_name = form.cleaned_data['r_name']
+
+            try:
+                old_to_ret_product_instance = to_ret_product.objects.get(retailer=old_retailer_name)
+                new_to_ret_product_instance = to_ret_product.objects.get(retailer=new_retailer_name)
+
+                # Update box2 for the old retailer
+                old_to_ret_product_instance.box2 -= 1
+                old_to_ret_product_instance.save()
+
+                # Update box2 for the new retailer
+                new_to_ret_product_instance.box2 += 1
+                new_to_ret_product_instance.save()
+
+            except to_ret_product.DoesNotExist:
+                pass
+
             form.save()
-            # Redirect to a success page, or any other desired action
-            return redirect('stock_view_all')
+
+            return redirect('close_box_master')
     else:
         form = BoxProductForm2(instance=box_product_instance)
     
@@ -144,6 +171,7 @@ def woc(request, pk):
             with transaction.atomic():
                 r_name_id = form.cleaned_data.get('r_name').id
                 set_value = form.cleaned_data.get('set')
+                print(r_name_id)
 
                 if set_value == 'BOX_ONLY':
                     set_var = 0
@@ -173,6 +201,11 @@ def woc(request, pk):
                             product_instance.dish -= c
                             product_instance.kit -= d
                             product_instance.save()
+
+                            to_ret_product_instance = to_ret_product.objects.filter(retailer_id=r_name_id).first()
+                            to_ret_product_instance.box2 -= 1
+                            to_ret_product_instance.save()
+
                         else:
                             messages.error(request, "Input data cannot exceed existing data")
                     else:
@@ -193,6 +226,7 @@ def woc(request, pk):
                             to_ret_product_instance.lnb2 -= b
                             to_ret_product_instance.dish2 -= c
                             to_ret_product_instance.kit2 -= d
+                            to_ret_product_instance.box2 -= d
                             to_ret_product_instance.save()
                         else:
                             messages.error(request, "Input data cannot exceed existing data")
@@ -203,6 +237,10 @@ def woc(request, pk):
                     return redirect('stock_view_all')
             
                 else:
+                    to_ret_product_instance = to_ret_product.objects.filter(retailer_id=r_name_id).first()
+                    to_ret_product_instance.box2 -= 1
+                    to_ret_product_instance.save()
+
                     box_product_instance = form.save(commit=False)
                     box_product_instance.set = 0  # Set the set field to 0
                     box_product_instance.save()
@@ -212,17 +250,27 @@ def woc(request, pk):
 
     return render(request, 'woc.html', {'form': form})
 
-def box_details_delete(request,pk):
+def box_details_delete(request, pk):
     # Retrieve the box_product instance by its primary key (pk)
     box_product_instance = get_object_or_404(box_product, pk=pk)
     
+    # Fetch the retailer name associated with the box_product instance
+    retailer_name = box_product_instance.r_name
+    
+    # Find the old_to_ret_product_instance for the old retailer
+    old_to_ret_product_instance = to_ret_product.objects.get(retailer=retailer_name)
+
     # Check if the request method is POST
     if request.method == 'POST':
         # Delete the box_product instance
         box_product_instance.delete()
+
+        # Update box2 for the old retailer
+        old_to_ret_product_instance.box2 -= 1
+        old_to_ret_product_instance.save()
         
         # Redirect to a success page or any other desired action
-        return redirect('stock_view_all')
+        return redirect('close_box_master')
     
     # If the request method is not POST, render a confirmation page
     return render(request, 'box_details_delete.html', {'box_product_instance': box_product_instance})
@@ -646,7 +694,33 @@ def sales_reports(request):
          
         return render(request,'sales_reports.html',) 
          
+def adjust_box(request):
+    form = adjust_form(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        adjustment = int(request.POST.get('adjustment'))
+        action = request.POST.get('action')
+        
+        new_retailer_name = form.cleaned_data['retailer']
+        
+        # Attempt to get the retailer's product instance
+        try:
+            new_to_ret_product_instance = to_ret_product.objects.get(retailer=new_retailer_name)
+        except to_ret_product.DoesNotExist:
+            # Handle the case where the retailer doesn't exist
+            # You might want to add a message to notify the user
+            return redirect('adjust_box')
 
+        # Based on the action, adjust the box2 field
+        if action == 'subtract':
+            new_to_ret_product_instance.box2 -= adjustment
+        elif action == 'add':
+            new_to_ret_product_instance.box2 += adjustment
+
+        new_to_ret_product_instance.save()
+
+        return redirect('adjust_box')  # Redirect to a success page after adjustment
+
+    return render(request, 'adjust_box.html', {'form': form})
 
 
 

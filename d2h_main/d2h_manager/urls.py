@@ -34,6 +34,7 @@ urlpatterns = [
     path('ret_ret',views.ret_ret,name='ret_ret'),
     path('sale_ret_product',views.sale_ret_product,name='sale_ret_product'),
     path('sale_ret_kan',views.sale_ret_kan,name='sale_ret_kan'),
-     path('sales_reports/',views.sales_reports,name='sales_reports'),
+    path('sales_reports',views.sales_reports,name='sales_reports'),
+    path('adjust_box',views.adjust_box,name='adjust_box'),
 
 ]
