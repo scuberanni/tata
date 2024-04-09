@@ -3,12 +3,17 @@
 
 {% block content %}
 
+<style>
+    /* CSS for table row hover effect */
+    table tbody tr:hover {
+        background-color: rgb(41, 46, 46); /* Change to your desired hover background color */
+    }
+</style>
 
 <section class="container-fluid">
     <div class="col-12">
         <div class="row">
             <div class="container1">
-
 
                 <div class="gradient-cards">
                     <div class="card1">
@@ -26,8 +31,8 @@
                                             {% for product_obj in boxes %}
                                             <tr>
                                                 <td class="pt-2">
-                                                    <h6 class="h12" style="color: aliceblue;">{{product_obj.b_name | upper}} &nbsp;
-                                                    </h6>
+                                                    <h7 class="h12" style="color: aliceblue;">{{product_obj.b_name | upper}} &nbsp;
+                                                    </h7>
                                                 </td>
                                                 <td>
                                                     <a href="{% url 'box_edit' product_obj.id %}"
@@ -115,7 +120,7 @@
                                     <br>
                                     <p class="card-title">Retailer Details &nbsp; <a class="btn btn-primary"
                                             href="{% url 'ret_master' %}" role="button">Add Retailers</a></p>
-                                    <table>
+                                    <table class="w-100">
                                         {% for product_obj in retailers %}
                                         <tr>
                                             <td class="pt-2">

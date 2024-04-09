@@ -5,7 +5,7 @@
 <div class="container pt-3">
     <div class="col-12">
         <div class="table-responsive">
-            <form method="post">
+            <form id="myForm" method="post">
                 {% csrf_token %}
                 {{ formset.management_form }}
                 
@@ -18,13 +18,7 @@
                                 <span class="text-danger">{{ error }}</span>
                             {% endfor %}
                         </div>
-                        <div class="col-6 col-md-4">
-                            <h6 style="color: rgb(0, 0, 0);">Box Type</h6>
-                            {{ form.b_name }}
-                            {% for error in form.b_name.errors %}
-                                <span class="text-danger">{{ error }}</span>
-                            {% endfor %}
-                        </div>
+                        
                         <div class="col-6 col-md-2">
                             <h6 style="color: rgb(0, 0, 0);">SL NO</h6>
                             {{ form.b_slno }}
@@ -41,13 +35,21 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <div class="col-6 col-md-4">
+                            <h6 style="color: rgb(0, 0, 0);">Box Type</h6>
+                            {{ form.b_name }}
+                            {% for error in form.b_name.errors %}
+                                <span class="text-danger">{{ error }}</span>
+                            {% endfor %}
+                        </div>
                     </div>
                 {% endfor %}
                 <div class="pt-2">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button id="submitButton" type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 {% endblock %}
