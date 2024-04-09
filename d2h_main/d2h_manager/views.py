@@ -234,7 +234,7 @@ def woc(request, pk):
                     box_product_instance = form.save(commit=False)
                     box_product_instance.set = 1  # Set the set field to 0
                     box_product_instance.save()
-                    return redirect('stock_view_all')
+                    return redirect('close_box_master')
             
                 else:
                     to_ret_product_instance = to_ret_product.objects.filter(retailer_id=r_name_id).first()
@@ -244,7 +244,7 @@ def woc(request, pk):
                     box_product_instance = form.save(commit=False)
                     box_product_instance.set = 0  # Set the set field to 0
                     box_product_instance.save()
-                    return redirect('stock_view_all')
+                    return redirect('close_box_master')
     else:
         form = BoxProductForm1(instance=box_product_instance)
 
