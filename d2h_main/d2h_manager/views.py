@@ -351,6 +351,8 @@ def retailer_dlt(request,pk):
      
     return render(request,'delete.html',{'box_product_instance':instance_dlt})
 
+from .models import to_ret_product
+
 def ret_master(request):
     # Initialize the form
     frm = ret_Form()
@@ -359,19 +361,29 @@ def ret_master(request):
     if request.method == 'POST':
         frm = ret_Form(request.POST, request.FILES)
         if frm.is_valid():
-            retailer = frm.save(commit=False)
-            retailer.save()
-            
-            to_ret_product.objects.create(
-                retailer=retailer,
-                cable2=0,
-                lnb2=0,
-                dish2=0,
-                kit2=0,
-                box2=0
-            )
-            return redirect('ret_master')
+            # Check if retailer with the same name already exists
+            if to_ret_product.objects.filter(retailer__r_name=request.POST['r_name']).exists():
+                # If retailer with same name exists, add an error to the form
+                frm.add_error('r_name', 'Retailer with this name already exists.')
+            else:
+                # Save the form data
+                retailer = frm.save(commit=False)
+                retailer.save()
+                
+                # Create a related object
+                to_ret_product.objects.create(
+                    retailer=retailer,
+                    cable2=0,
+                    lnb2=0,
+                    dish2=0,
+                    kit2=0,
+                    box2=0
+                )
+                
+                # Redirect to ret_master view after successful form submission
+                return redirect('ret_master')
 
+    # Render the form if it's not submitted or is invalid
     return render(request, 'pr_master.html', {'frm': frm})
 
 def master(request):
