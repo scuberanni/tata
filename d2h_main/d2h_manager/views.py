@@ -351,17 +351,33 @@ def retailer_dlt(request,pk):
      
     return render(request,'delete.html',{'box_product_instance':instance_dlt})
 
-def ret_master(request): 
-    frm=ret_Form()
-    if request.POST:
-        frm=ret_Form(request.POST,request.FILES)
+def ret_master(request):
+    # Initialize the form
+    frm = ret_Form()
+
+    # If form is submitted
+    if request.method == 'POST':
+        frm = ret_Form(request.POST, request.FILES)
         if frm.is_valid():
-            frm.save()
-            return redirect('ret_master')
+            # Save the form data and create a new retailer
+            retailer = frm.save(commit=False)  # Don't commit to database yet
+            retailer.save()  # Now save to commit to database
             
-    else:
-        frm=ret_Form()        
-    return render(request,'pr_master.html',{'frm':frm})
+            # Reset product quantities to 0 for the new retailer
+            to_ret_product.objects.create(
+                retailer=retailer,
+                cable2=0,
+                lnb2=0,
+                dish2=0,
+                kit2=0,
+                box2=0
+            )
+
+            # Redirect to the same view to avoid form resubmission
+            return redirect('ret_master')
+
+    # If it's a GET request or form submission failed, render the form
+    return render(request, 'pr_master.html', {'frm': frm})
 
 def master(request):
     products = product_master.objects.all()
