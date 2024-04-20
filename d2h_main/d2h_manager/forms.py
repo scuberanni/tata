@@ -118,6 +118,7 @@ class to_ret_Form(ModelForm):
 
 class to_ret_Form2(ModelForm):
     retailer1 = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
+    retailer2 = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
     quantity = forms.IntegerField(label='Quantity')
 
     class Meta:
@@ -130,8 +131,8 @@ class to_ret_Form2(ModelForm):
         }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['retailer1'].queryset = retailer_master.objects.all()
-        self.fields['retailer2'].queryset = retailer_master.objects.all()
+        self.fields['retailer1'].queryset = retailer_master.objects.all().order_by('r_name')
+        self.fields['retailer2'].queryset = retailer_master.objects.all().order_by('r_name')
 
 
 class sale_ProductForm(ModelForm):
@@ -164,6 +165,6 @@ class sale_to_ret_Form(ModelForm):
         } 
 
 class RetailerForm(forms.Form):
-    r_name = forms.ModelChoiceField(queryset=retailer_master.objects.all(), empty_label=None, label="Retailer Name")
+    r_name = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
 
       
