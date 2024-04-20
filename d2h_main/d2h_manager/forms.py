@@ -22,6 +22,7 @@ class box_Form(ModelForm):
             fields='__all__'  
 
 class BoxProductForm1(ModelForm):
+    r_name = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
     woc_date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),required=False)
     class Meta:
         model = box_product
@@ -36,6 +37,7 @@ class BoxProductForm1(ModelForm):
         } 
 
 class BoxProductForm(ModelForm):
+    r_name = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
     class Meta:
         model = box_product
         fields = ['r_name','b_name', 'b_slno', 'b_vscno']
@@ -62,6 +64,7 @@ class BoxProductForm(ModelForm):
         return cleaned_data  
         
 class BoxProductForm2(ModelForm):
+    r_name = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
     class Meta:
         model = box_product
         fields = ['r_name','b_name', 'b_slno', 'b_vscno']
@@ -73,6 +76,7 @@ class BoxProductForm2(ModelForm):
         }
 
 class adjust_form(ModelForm):
+    retailer = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
     class Meta:
         model = to_ret_product
         fields = ['retailer']
@@ -81,6 +85,7 @@ class adjust_form(ModelForm):
         }
 
 class BoxRetailerForm(ModelForm):
+    retailer = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
     class Meta:
         model = box_retailer_master
         fields = ['retailer', 'b_vcsno', 'add_date', 'sl_date'] 
@@ -99,6 +104,7 @@ class ProductForm(ModelForm):
         }  
 
 class to_ret_Form(ModelForm):
+    retailer = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
     class Meta:
         model = to_ret_product
         fields = ['retailer', 'cable2', 'lnb2', 'dish2', 'kit2',]   
@@ -111,6 +117,7 @@ class to_ret_Form(ModelForm):
         } 
 
 class to_ret_Form2(ModelForm):
+    retailer1 = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
     quantity = forms.IntegerField(label='Quantity')
 
     class Meta:
@@ -142,6 +149,7 @@ class sale_ProductForm(ModelForm):
           
 
 class sale_to_ret_Form(ModelForm):
+    retailer4 = forms.ModelChoiceField(queryset=retailer_master.objects.all().order_by('r_name'))
     class Meta:
         sl_date4 = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),required=False)
         model = sale_to_ret_product
