@@ -359,11 +359,9 @@ def ret_master(request):
     if request.method == 'POST':
         frm = ret_Form(request.POST, request.FILES)
         if frm.is_valid():
-            # Save the form data and create a new retailer
-            retailer = frm.save(commit=False)  # Don't commit to database yet
-            retailer.save()  # Now save to commit to database
+            retailer = frm.save(commit=False)
+            retailer.save()
             
-            # Reset product quantities to 0 for the new retailer
             to_ret_product.objects.create(
                 retailer=retailer,
                 cable2=0,
@@ -372,11 +370,8 @@ def ret_master(request):
                 kit2=0,
                 box2=0
             )
-
-            # Redirect to the same view to avoid form resubmission
             return redirect('ret_master')
 
-    # If it's a GET request or form submission failed, render the form
     return render(request, 'pr_master.html', {'frm': frm})
 
 def master(request):
