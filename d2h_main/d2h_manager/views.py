@@ -11,7 +11,7 @@ from django.contrib import messages
 # Create your views here.
 def home(request):
     
-    products = to_ret_product.objects.all()[:9]
+    products = to_ret_product.objects.all().order_by('-box2')[:9]
     products1=product.objects.all()
     
     return render(request, 'index.html', {'products': products,'products1': products1})
@@ -21,7 +21,7 @@ def admin(request):
 
 def stock_view(request):
     
-    products = to_ret_product.objects.all()
+    products = to_ret_product.objects.all().order_by('retailer__r_name')
     products1=product.objects.all()
     return render(request, 'stock_view.html', {'products': products,'products1': products1}) 
 
