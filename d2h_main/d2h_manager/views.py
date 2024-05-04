@@ -6,15 +6,38 @@ from .forms import BoxProductForm,BoxProductForm2,BoxProductForm1,RetailerForm,a
 from django.db.models import Q
 from django.db import transaction
 from django.contrib import messages
+from django.db.models import Sum
 
 
 # Create your views here.
 def home(request):
-    
+    # Retrieve products
     products = to_ret_product.objects.all().order_by('-box2')[:9]
-    products1=product.objects.all()
+    products2 = to_ret_product.objects.all().order_by('-box2')
+    products1 = product.objects.all()
     
-    return render(request, 'index.html', {'products': products,'products1': products1})
+    # Calculate sums
+    sum_cable2 = products2.aggregate(total_cable=Sum('cable2'))['total_cable'] or 0
+    sum_lnb2 = products2.aggregate(total_lnb=Sum('lnb2'))['total_lnb'] or 0
+    sum_dish2 = products2.aggregate(total_dish=Sum('dish2'))['total_dish'] or 0
+    sum_kit2 = products2.aggregate(total_kit=Sum('kit2'))['total_kit'] or 0
+    sum_box2 = products2.aggregate(total_box=Sum('box2'))['total_box'] or 0
+
+    sum_cable1 = products1.aggregate(total_cable=Sum('cable'))['total_cable'] or 0
+    sum_lnb1 = products1.aggregate(total_lnb=Sum('lnb'))['total_lnb'] or 0
+    sum_dish1 = products1.aggregate(total_dish=Sum('dish'))['total_dish'] or 0
+    sum_kit1 = products1.aggregate(total_kit=Sum('kit'))['total_kit'] or 0
+    
+
+    sum_cable = sum_cable2 + sum_cable1
+    sum_lnb = sum_lnb2 + sum_lnb1
+    sum_dish = sum_dish2 + sum_dish1
+    sum_kit = sum_kit2 + sum_kit1
+    sum_box = sum_box2
+
+    return render(request, 'index.html', {'products': products, 'products1': products1, 
+                                          'sum_cable': sum_cable, 'sum_lnb': sum_lnb, 
+                                          'sum_dish': sum_dish, 'sum_kit': sum_kit,'sum_box': sum_box})
 
 def admin(request):
     return render(request,'admin')
